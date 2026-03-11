@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referencia Completa de CSS</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent: #7c6aff;
+    --accent2: #ff6a9b;
+    --accent3: #6affda;
+    --accent4: #ffb86a;
+    --text: #e8e8f0;
+    --muted: #888899;
+    --code: #c0b9ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a0f2e 50%, #0f1a1a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(124,106,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(106,255,218,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 50%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+  header p {
+    color: var(--muted);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Search & Nav */
+  .controls {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .search-wrap {
+    flex: 1;
+    min-width: 220px;
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.4;
+  }
+  #search {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #search:focus { border-color: var(--accent); }
+
+  .tabs {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .tab:hover { color: var(--text); border-color: var(--accent); }
+  .tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Main */
+  main { padding: 2rem; max-width: 1600px; margin: 0 auto; }
+
+  .section {
+    margin-bottom: 3rem;
+    display: none;
+  }
+  .section.visible { display: block; }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .section-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Table */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  thead tr {
+    background: linear-gradient(90deg, rgba(124,106,255,0.15), rgba(106,255,218,0.08));
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(42,42,58,0.6);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(124,106,255,0.04); }
+  tbody tr:last-child { border-bottom: none; }
+  td { padding: 0.65rem 1rem; vertical-align: top; line-height: 1.5; }
+  
+  .prop-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--code);
+    white-space: nowrap;
+    font-weight: 700;
+  }
+  .prop-values {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent4);
+    opacity: 0.85;
+  }
+  .prop-desc { color: var(--text); font-size: 0.83rem; }
+  .prop-example {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent3);
+    opacity: 0.8;
+  }
+
+  /* Category colors */
+  .cat-layout   { color: #6affda; }
+  .cat-box      { color: #7c6aff; }
+  .cat-typo     { color: #ff6a9b; }
+  .cat-color    { color: #ffb86a; }
+  .cat-anim     { color: #6adbff; }
+  .cat-pseudo   { color: #da6aff; }
+  .cat-flex     { color: #6aff8f; }
+  .cat-grid     { color: #ff9f6a; }
+  .cat-trans    { color: #6ad4ff; }
+  .cat-filter   { color: #ff6adb; }
+  .cat-misc     { color: #b0b0c8; }
+  .cat-html     { color: #f97316; }
+
+  /* Badge colors per section */
+  .badge-layout  { background: rgba(106,255,218,0.12); color: #6affda; }
+  .badge-box     { background: rgba(124,106,255,0.15); color: #7c6aff; }
+  .badge-typo    { background: rgba(255,106,155,0.12); color: #ff6a9b; }
+  .badge-flex    { background: rgba(106,255,143,0.12); color: #6aff8f; }
+  .badge-grid    { background: rgba(255,159,106,0.12); color: #ff9f6a; }
+  .badge-anim    { background: rgba(106,219,255,0.12); color: #6adbff; }
+  .badge-pseudo  { background: rgba(218,106,255,0.15); color: #da6aff; }
+  .badge-trans   { background: rgba(106,212,255,0.12); color: #6ad4ff; }
+  .badge-filter  { background: rgba(255,106,219,0.12); color: #ff6adb; }
+  .badge-misc    { background: rgba(176,176,200,0.12); color: #b0b0c8; }
+  .badge-html    { background: rgba(249,115,22,0.15); color: #f97316; }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    font-size: 1rem;
+    display: none;
+  }
+  .no-results.visible { display: block; }
+
+  /* Count badge */
+  .count { 
+    margin-left: auto;
+    background: rgba(124,106,255,0.15);
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    main { padding: 1rem; }
+    .controls { padding: 0.75rem 1rem; }
+    td, th { padding: 0.5rem 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p style="font-size:0.78rem;letter-spacing:0.12em;color:var(--accent3);text-transform:uppercase;font-weight:700;margin-bottom:0.6rem;opacity:0.85;">Hecho por Fabio Capacho</p>
+  <h1>Referencia Completa CSS + HTML</h1>
+  <p>Propiedades CSS · HTML · Pseudoclases · Pseudoelementos · Valores</p>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Buscar propiedad, valor, descripción...">
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-section="all">Todo</button>
+    <button class="tab" data-section="layout">Layout</button>
+    <button class="tab" data-section="box">Box Model</button>
+    <button class="tab" data-section="typo">Tipografía</button>
+    <button class="tab" data-section="flex">Flexbox</button>
+    <button class="tab" data-section="grid">Grid</button>
+    <button class="tab" data-section="color">Color & Fondo</button>
+    <button class="tab" data-section="trans">Transformación</button>
+    <button class="tab" data-section="anim">Animación</button>
+    <button class="tab" data-section="filter">Filtros</button>
+    <button class="tab" data-section="pseudo">Pseudoclases</button>
+    <button class="tab" data-section="pseudoel">Pseudoelementos</button>
+    <button class="tab" data-section="misc">Misceláneos</button>
+    <button class="tab" data-section="html">HTML</button>
+  </div>
+</div>
+
+<main>
+
+<div class="no-results" id="no-results">Sin resultados para esta búsqueda.</div>
+
+<!-- ═══════════════════════════════════════════════ LAYOUT -->
+<section class="section visible" data-section="layout">
+  <div class="section-title">
+    <span class="section-badge badge-layout">Layout</span>
+    <h2 class="cat-layout">Posicionamiento & Layout</h2>
+    <span class="count">25 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">display</td><td class="prop-values">block | inline | inline-block | flex | grid | inline-flex | inline-grid | none | contents | table | list-item</td><td class="prop-desc">Define cómo se renderiza el elemento en el flujo del documento</td><td class="prop-example">display: flex</td></tr>
+        <tr><td class="prop-name">position</td><td class="prop-values">static | relative | absolute | fixed | sticky</td><td class="prop-desc">Controla el esquema de posicionamiento del elemento</td><td class="prop-example">position: absolute</td></tr>
+        <tr><td class="prop-name">top</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Desplazamiento desde el borde superior (con position no estático)</td><td class="prop-example">top: 20px</td></tr>
+        <tr><td class="prop-name">right</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Desplazamiento desde el borde derecho</td><td class="prop-example">right: 0</td></tr>
+        <tr><td class="prop-name">bottom</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Desplazamiento desde el borde inferior</td><td class="prop-example">bottom: 10px</td></tr>
+        <tr><td class="prop-name">left</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Desplazamiento desde el borde izquierdo</td><td class="prop-example">left: 50%</td></tr>
+        <tr><td class="prop-name">z-index</td><td class="prop-values">auto | &lt;integer&gt;</td><td class="prop-desc">Orden de apilamiento en el eje Z (mayor = encima)</td><td class="prop-example">z-index: 10</td></tr>
+        <tr><td class="prop-name">float</td><td class="prop-values">none | left | right | inline-start | inline-end</td><td class="prop-desc">Hace flotar el elemento a un lado, el texto lo rodea</td><td class="prop-example">float: left</td></tr>
+        <tr><td class="prop-name">clear</td><td class="prop-values">none | left | right | both</td><td class="prop-desc">Impide que elementos flotantes queden al lado</td><td class="prop-example">clear: both</td></tr>
+        <tr><td class="prop-name">overflow</td><td class="prop-values">visible | hidden | scroll | auto | clip</td><td class="prop-desc">Controla qué pasa con el contenido que desborda el contenedor</td><td class="prop-example">overflow: hidden</td></tr>
+        <tr><td class="prop-name">overflow-x</td><td class="prop-values">visible | hidden | scroll | auto | clip</td><td class="prop-desc">Desbordamiento horizontal</td><td class="prop-example">overflow-x: auto</td></tr>
+        <tr><td class="prop-name">overflow-y</td><td class="prop-values">visible | hidden | scroll | auto | clip</td><td class="prop-desc">Desbordamiento vertical</td><td class="prop-example">overflow-y: scroll</td></tr>
+        <tr><td class="prop-name">visibility</td><td class="prop-values">visible | hidden | collapse</td><td class="prop-desc">Muestra u oculta el elemento sin quitarlo del flujo (sigue ocupando espacio)</td><td class="prop-example">visibility: hidden</td></tr>
+        <tr><td class="prop-name">width</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt; | min-content | max-content | fit-content</td><td class="prop-desc">Ancho del elemento</td><td class="prop-example">width: 100%</td></tr>
+        <tr><td class="prop-name">height</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt; | min-content | max-content | fit-content</td><td class="prop-desc">Alto del elemento</td><td class="prop-example">height: 50vh</td></tr>
+        <tr><td class="prop-name">min-width</td><td class="prop-values">0 | &lt;length&gt; | &lt;percentage&gt; | min-content | max-content</td><td class="prop-desc">Ancho mínimo que puede tener el elemento</td><td class="prop-example">min-width: 200px</td></tr>
+        <tr><td class="prop-name">max-width</td><td class="prop-values">none | &lt;length&gt; | &lt;percentage&gt; | min-content | max-content</td><td class="prop-desc">Ancho máximo permitido</td><td class="prop-example">max-width: 1200px</td></tr>
+        <tr><td class="prop-name">min-height</td><td class="prop-values">0 | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Alto mínimo del elemento</td><td class="prop-example">min-height: 100vh</td></tr>
+        <tr><td class="prop-name">max-height</td><td class="prop-values">none | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Alto máximo permitido</td><td class="prop-example">max-height: 400px</td></tr>
+        <tr><td class="prop-name">box-sizing</td><td class="prop-values">content-box | border-box</td><td class="prop-desc">Define si padding y border se incluyen en width/height</td><td class="prop-example">box-sizing: border-box</td></tr>
+        <tr><td class="prop-name">inset</td><td class="prop-values">&lt;length&gt; | auto (shorthand: top right bottom left)</td><td class="prop-desc">Shorthand para top, right, bottom y left a la vez</td><td class="prop-example">inset: 0</td></tr>
+        <tr><td class="prop-name">aspect-ratio</td><td class="prop-values">auto | &lt;ratio&gt;</td><td class="prop-desc">Relación de aspecto ancho/alto del elemento</td><td class="prop-example">aspect-ratio: 16/9</td></tr>
+        <tr><td class="prop-name">contain</td><td class="prop-values">none | strict | content | size | layout | paint | style</td><td class="prop-desc">Limita el alcance de efectos de layout y paint para optimización</td><td class="prop-example">contain: layout</td></tr>
+        <tr><td class="prop-name">isolation</td><td class="prop-values">auto | isolate</td><td class="prop-desc">Crea un nuevo contexto de apilamiento sin z-index</td><td class="prop-example">isolation: isolate</td></tr>
+        <tr><td class="prop-name">clip-path</td><td class="prop-values">none | &lt;shape&gt; | url() | inset() | circle() | ellipse() | polygon() | path()</td><td class="prop-desc">Recorta el área visible del elemento con una forma</td><td class="prop-example">clip-path: circle(50%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ BOX MODEL -->
+<section class="section visible" data-section="box">
+  <div class="section-title">
+    <span class="section-badge badge-box">Box Model</span>
+    <h2 class="cat-box">Box Model: Margen, Padding, Borde</h2>
+    <span class="count">28 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">margin</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt; (1-4 valores)</td><td class="prop-desc">Espacio exterior del elemento (shorthand: top right bottom left)</td><td class="prop-example">margin: 0 auto</td></tr>
+        <tr><td class="prop-name">margin-top</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Margen superior</td><td class="prop-example">margin-top: 16px</td></tr>
+        <tr><td class="prop-name">margin-right</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Margen derecho</td><td class="prop-example">margin-right: 8px</td></tr>
+        <tr><td class="prop-name">margin-bottom</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Margen inferior</td><td class="prop-example">margin-bottom: 24px</td></tr>
+        <tr><td class="prop-name">margin-left</td><td class="prop-values">auto | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Margen izquierdo</td><td class="prop-example">margin-left: auto</td></tr>
+        <tr><td class="prop-name">margin-inline</td><td class="prop-values">auto | &lt;length&gt; (shorthand: start end)</td><td class="prop-desc">Margen en el eje inline (izquierda y derecha en LTR)</td><td class="prop-example">margin-inline: auto</td></tr>
+        <tr><td class="prop-name">margin-block</td><td class="prop-values">auto | &lt;length&gt; (shorthand: start end)</td><td class="prop-desc">Margen en el eje de bloque (arriba y abajo)</td><td class="prop-example">margin-block: 1rem</td></tr>
+        <tr><td class="prop-name">padding</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt; (1-4 valores)</td><td class="prop-desc">Espacio interior entre contenido y borde (shorthand)</td><td class="prop-example">padding: 1rem 2rem</td></tr>
+        <tr><td class="prop-name">padding-top</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Padding superior</td><td class="prop-example">padding-top: 12px</td></tr>
+        <tr><td class="prop-name">padding-right</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Padding derecho</td><td class="prop-example">padding-right: 16px</td></tr>
+        <tr><td class="prop-name">padding-bottom</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Padding inferior</td><td class="prop-example">padding-bottom: 12px</td></tr>
+        <tr><td class="prop-name">padding-left</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Padding izquierdo</td><td class="prop-example">padding-left: 16px</td></tr>
+        <tr><td class="prop-name">padding-inline</td><td class="prop-values">&lt;length&gt;</td><td class="prop-desc">Padding horizontal (inline start y end)</td><td class="prop-example">padding-inline: 1rem</td></tr>
+        <tr><td class="prop-name">padding-block</td><td class="prop-values">&lt;length&gt;</td><td class="prop-desc">Padding vertical (block start y end)</td><td class="prop-example">padding-block: 0.5rem</td></tr>
+        <tr><td class="prop-name">border</td><td class="prop-values">&lt;width&gt; &lt;style&gt; &lt;color&gt;</td><td class="prop-desc">Shorthand: grosor, estilo y color del borde</td><td class="prop-example">border: 1px solid #ccc</td></tr>
+        <tr><td class="prop-name">border-width</td><td class="prop-values">thin | medium | thick | &lt;length&gt;</td><td class="prop-desc">Grosor del borde (1-4 valores)</td><td class="prop-example">border-width: 2px</td></tr>
+        <tr><td class="prop-name">border-style</td><td class="prop-values">none | solid | dashed | dotted | double | groove | ridge | inset | outset</td><td class="prop-desc">Estilo visual del borde</td><td class="prop-example">border-style: dashed</td></tr>
+        <tr><td class="prop-name">border-color</td><td class="prop-values">&lt;color&gt;</td><td class="prop-desc">Color del borde</td><td class="prop-desc">border-color: red</td></tr>
+        <tr><td class="prop-name">border-radius</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt; (1-4 valores)</td><td class="prop-desc">Redondea las esquinas del borde</td><td class="prop-example">border-radius: 8px</td></tr>
+        <tr><td class="prop-name">border-top / right / bottom / left</td><td class="prop-values">&lt;width&gt; &lt;style&gt; &lt;color&gt;</td><td class="prop-desc">Borde individual por lado</td><td class="prop-example">border-top: 3px solid blue</td></tr>
+        <tr><td class="prop-name">border-image</td><td class="prop-values">source slice width outset repeat</td><td class="prop-desc">Usa una imagen como borde del elemento</td><td class="prop-example">border-image: url(b.png) 30 round</td></tr>
+        <tr><td class="prop-name">border-collapse</td><td class="prop-values">separate | collapse</td><td class="prop-desc">En tablas: si los bordes de celdas se fusionan o separan</td><td class="prop-example">border-collapse: collapse</td></tr>
+        <tr><td class="prop-name">border-spacing</td><td class="prop-values">&lt;length&gt; | &lt;length&gt; &lt;length&gt;</td><td class="prop-desc">Espacio entre bordes de celdas en tablas (h v)</td><td class="prop-example">border-spacing: 4px</td></tr>
+        <tr><td class="prop-name">outline</td><td class="prop-values">&lt;width&gt; &lt;style&gt; &lt;color&gt;</td><td class="prop-desc">Contorno exterior al borde, no afecta el layout</td><td class="prop-example">outline: 2px dashed blue</td></tr>
+        <tr><td class="prop-name">outline-offset</td><td class="prop-values">&lt;length&gt;</td><td class="prop-desc">Distancia entre el outline y el borde del elemento</td><td class="prop-example">outline-offset: 4px</td></tr>
+        <tr><td class="prop-name">box-shadow</td><td class="prop-values">none | [inset?] x y blur? spread? color</td><td class="prop-desc">Sombra del elemento (puede ser múltiple separada por comas)</td><td class="prop-example">box-shadow: 0 4px 12px rgba(0,0,0,.2)</td></tr>
+        <tr><td class="prop-name">resize</td><td class="prop-values">none | both | horizontal | vertical | block | inline</td><td class="prop-desc">Permite al usuario redimensionar el elemento (overflow debe ser ≠ visible)</td><td class="prop-example">resize: vertical</td></tr>
+        <tr><td class="prop-name">cursor</td><td class="prop-values">auto | default | pointer | text | move | grab | grabbing | not-allowed | crosshair | zoom-in | zoom-out | url() | none | ...</td><td class="prop-desc">Tipo de cursor cuando el puntero está sobre el elemento</td><td class="prop-example">cursor: pointer</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ TYPOGRAPHY -->
+<section class="section visible" data-section="typo">
+  <div class="section-title">
+    <span class="section-badge badge-typo">Tipografía</span>
+    <h2 class="cat-typo">Tipografía & Texto</h2>
+    <span class="count">30 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">font-family</td><td class="prop-values">&lt;family-name&gt; | generic (serif | sans-serif | monospace | cursive | fantasy | system-ui)</td><td class="prop-desc">Familia tipográfica, se pueden especificar varias como fallback</td><td class="prop-example">font-family: 'Roboto', sans-serif</td></tr>
+        <tr><td class="prop-name">font-size</td><td class="prop-values">xx-small ... xx-large | smaller | larger | &lt;length&gt; | &lt;percentage&gt; | em | rem | vw</td><td class="prop-desc">Tamaño de la fuente</td><td class="prop-example">font-size: 1.25rem</td></tr>
+        <tr><td class="prop-name">font-weight</td><td class="prop-values">normal | bold | bolder | lighter | 100–900</td><td class="prop-desc">Grosor o peso de la fuente</td><td class="prop-example">font-weight: 700</td></tr>
+        <tr><td class="prop-name">font-style</td><td class="prop-values">normal | italic | oblique &lt;angle&gt;</td><td class="prop-desc">Estilo de la fuente (itálica o inclinada)</td><td class="prop-example">font-style: italic</td></tr>
+        <tr><td class="prop-name">font-variant</td><td class="prop-values">normal | small-caps</td><td class="prop-desc">Variante de la fuente (versalitas)</td><td class="prop-example">font-variant: small-caps</td></tr>
+        <tr><td class="prop-name">font-stretch</td><td class="prop-values">normal | condensed | expanded | ultra-condensed | ultra-expanded | &lt;percentage&gt;</td><td class="prop-desc">Ancho/condensación de la fuente</td><td class="prop-example">font-stretch: condensed</td></tr>
+        <tr><td class="prop-name">font</td><td class="prop-values">style variant weight stretch size/line-height family</td><td class="prop-desc">Shorthand para todas las propiedades font-*</td><td class="prop-example">font: bold 1rem/1.5 sans-serif</td></tr>
+        <tr><td class="prop-name">line-height</td><td class="prop-values">normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Altura de línea (interlineado)</td><td class="prop-example">line-height: 1.6</td></tr>
+        <tr><td class="prop-name">letter-spacing</td><td class="prop-values">normal | &lt;length&gt;</td><td class="prop-desc">Espacio entre caracteres (tracking)</td><td class="prop-example">letter-spacing: 0.05em</td></tr>
+        <tr><td class="prop-name">word-spacing</td><td class="prop-values">normal | &lt;length&gt;</td><td class="prop-desc">Espacio adicional entre palabras</td><td class="prop-example">word-spacing: 4px</td></tr>
+        <tr><td class="prop-name">text-align</td><td class="prop-values">left | right | center | justify | start | end | match-parent</td><td class="prop-desc">Alineación horizontal del texto</td><td class="prop-example">text-align: justify</td></tr>
+        <tr><td class="prop-name">text-align-last</td><td class="prop-values">auto | left | right | center | justify | start | end</td><td class="prop-desc">Alineación de la última línea en texto justificado</td><td class="prop-example">text-align-last: center</td></tr>
+        <tr><td class="prop-name">text-decoration</td><td class="prop-values">none | underline | overline | line-through | blink + color + style + thickness</td><td class="prop-desc">Decoración del texto (subrayado, tachado, etc.)</td><td class="prop-example">text-decoration: underline dotted red</td></tr>
+        <tr><td class="prop-name">text-decoration-line</td><td class="prop-values">none | underline | overline | line-through</td><td class="prop-desc">Tipo de línea decorativa</td><td class="prop-example">text-decoration-line: line-through</td></tr>
+        <tr><td class="prop-name">text-decoration-style</td><td class="prop-values">solid | double | dotted | dashed | wavy</td><td class="prop-desc">Estilo de la línea decorativa</td><td class="prop-example">text-decoration-style: wavy</td></tr>
+        <tr><td class="prop-name">text-decoration-color</td><td class="prop-values">&lt;color&gt;</td><td class="prop-desc">Color de la línea decorativa</td><td class="prop-example">text-decoration-color: red</td></tr>
+        <tr><td class="prop-name">text-transform</td><td class="prop-values">none | uppercase | lowercase | capitalize | full-width</td><td class="prop-desc">Transforma las mayúsculas/minúsculas del texto</td><td class="prop-example">text-transform: uppercase</td></tr>
+        <tr><td class="prop-name">text-indent</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Sangría de la primera línea del bloque</td><td class="prop-example">text-indent: 2em</td></tr>
+        <tr><td class="prop-name">text-shadow</td><td class="prop-values">none | x y blur color (múltiple con comas)</td><td class="prop-desc">Sombra del texto</td><td class="prop-example">text-shadow: 2px 2px 4px rgba(0,0,0,.5)</td></tr>
+        <tr><td class="prop-name">text-overflow</td><td class="prop-values">clip | ellipsis | &lt;string&gt;</td><td class="prop-desc">Qué mostrar cuando el texto desborda (necesita overflow:hidden y white-space:nowrap)</td><td class="prop-example">text-overflow: ellipsis</td></tr>
+        <tr><td class="prop-name">text-rendering</td><td class="prop-values">auto | optimizeSpeed | optimizeLegibility | geometricPrecision</td><td class="prop-desc">Hint al motor de renderizado sobre la prioridad al renderizar texto</td><td class="prop-example">text-rendering: optimizeLegibility</td></tr>
+        <tr><td class="prop-name">white-space</td><td class="prop-values">normal | nowrap | pre | pre-wrap | pre-line | break-spaces</td><td class="prop-desc">Cómo manejar espacios en blanco y saltos de línea</td><td class="prop-example">white-space: nowrap</td></tr>
+        <tr><td class="prop-name">word-break</td><td class="prop-values">normal | break-all | keep-all | break-word</td><td class="prop-desc">Dónde romper palabras largas al llegar al borde</td><td class="prop-example">word-break: break-all</td></tr>
+        <tr><td class="prop-name">overflow-wrap</td><td class="prop-values">normal | break-word | anywhere</td><td class="prop-desc">Rompe líneas para evitar overflow de texto</td><td class="prop-example">overflow-wrap: break-word</td></tr>
+        <tr><td class="prop-name">hyphens</td><td class="prop-values">none | manual | auto</td><td class="prop-desc">Controla la separación silábica automática con guiones</td><td class="prop-example">hyphens: auto</td></tr>
+        <tr><td class="prop-name">writing-mode</td><td class="prop-values">horizontal-tb | vertical-rl | vertical-lr | sideways-rl | sideways-lr</td><td class="prop-desc">Dirección de escritura del texto</td><td class="prop-example">writing-mode: vertical-rl</td></tr>
+        <tr><td class="prop-name">direction</td><td class="prop-values">ltr | rtl</td><td class="prop-desc">Dirección del texto (izquierda a derecha o viceversa)</td><td class="prop-example">direction: rtl</td></tr>
+        <tr><td class="prop-name">unicode-bidi</td><td class="prop-values">normal | embed | bidi-override | isolate | isolate-override | plaintext</td><td class="prop-desc">Control del algoritmo bidi de Unicode</td><td class="prop-example">unicode-bidi: embed</td></tr>
+        <tr><td class="prop-name">vertical-align</td><td class="prop-values">baseline | top | middle | bottom | text-top | text-bottom | super | sub | &lt;length&gt;</td><td class="prop-desc">Alineación vertical de elementos inline o celdas de tabla</td><td class="prop-example">vertical-align: middle</td></tr>
+        <tr><td class="prop-name">tab-size</td><td class="prop-values">&lt;integer&gt; | &lt;length&gt;</td><td class="prop-desc">Tamaño del carácter de tabulación</td><td class="prop-example">tab-size: 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ COLOR & BACKGROUND -->
+<section class="section visible" data-section="color">
+  <div class="section-title">
+    <span class="section-badge badge-misc" style="background:rgba(255,184,106,0.12);color:#ffb86a">Color</span>
+    <h2 class="cat-color">Color & Fondo</h2>
+    <span class="count">18 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">color</td><td class="prop-values">&lt;color&gt; (nombre, hex, rgb, hsl, oklch...)</td><td class="prop-desc">Color del texto y de elementos de color actual</td><td class="prop-example">color: #ff6a9b</td></tr>
+        <tr><td class="prop-name">opacity</td><td class="prop-values">0 – 1</td><td class="prop-desc">Transparencia del elemento completo (incluyendo hijos)</td><td class="prop-example">opacity: 0.8</td></tr>
+        <tr><td class="prop-name">background</td><td class="prop-values">color image position/size repeat origin clip attachment (shorthand)</td><td class="prop-desc">Shorthand de todas las propiedades background-*</td><td class="prop-example">background: #fff url(img.png) no-repeat center/cover</td></tr>
+        <tr><td class="prop-name">background-color</td><td class="prop-values">&lt;color&gt; | transparent</td><td class="prop-desc">Color de fondo del elemento</td><td class="prop-example">background-color: rgba(0,0,0,.5)</td></tr>
+        <tr><td class="prop-name">background-image</td><td class="prop-values">none | url() | linear-gradient() | radial-gradient() | conic-gradient() | ...</td><td class="prop-desc">Imagen o degradado de fondo (puede ser múltiple)</td><td class="prop-example">background-image: linear-gradient(to right, red, blue)</td></tr>
+        <tr><td class="prop-name">background-position</td><td class="prop-values">top | center | bottom | left | right | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Posición de la imagen de fondo</td><td class="prop-example">background-position: center top</td></tr>
+        <tr><td class="prop-name">background-size</td><td class="prop-values">auto | cover | contain | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Tamaño de la imagen de fondo</td><td class="prop-example">background-size: cover</td></tr>
+        <tr><td class="prop-name">background-repeat</td><td class="prop-values">repeat | no-repeat | repeat-x | repeat-y | space | round</td><td class="prop-desc">Cómo se repite la imagen de fondo</td><td class="prop-example">background-repeat: no-repeat</td></tr>
+        <tr><td class="prop-name">background-origin</td><td class="prop-values">padding-box | border-box | content-box</td><td class="prop-desc">Área de referencia para posicionar el fondo</td><td class="prop-example">background-origin: content-box</td></tr>
+        <tr><td class="prop-name">background-clip</td><td class="prop-values">border-box | padding-box | content-box | text</td><td class="prop-desc">Área hasta donde se extiende el fondo (text: recorta el fondo al texto)</td><td class="prop-example">background-clip: text</td></tr>
+        <tr><td class="prop-name">background-attachment</td><td class="prop-values">scroll | fixed | local</td><td class="prop-desc">Si el fondo se desplaza con el scroll o se fija</td><td class="prop-example">background-attachment: fixed</td></tr>
+        <tr><td class="prop-name">background-blend-mode</td><td class="prop-values">normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity</td><td class="prop-desc">Modo de fusión entre capas de fondo</td><td class="prop-example">background-blend-mode: multiply</td></tr>
+        <tr><td class="prop-name">mix-blend-mode</td><td class="prop-values">(mismos valores que background-blend-mode)</td><td class="prop-desc">Modo de fusión del elemento con el contenido que hay debajo</td><td class="prop-example">mix-blend-mode: overlay</td></tr>
+        <tr><td class="prop-name">color-scheme</td><td class="prop-values">normal | light | dark | light dark</td><td class="prop-desc">Indica los esquemas de color soportados por el elemento</td><td class="prop-example">color-scheme: dark</td></tr>
+        <tr><td class="prop-name">accent-color</td><td class="prop-values">auto | &lt;color&gt;</td><td class="prop-desc">Color de acento para controles de formulario del navegador</td><td class="prop-example">accent-color: hotpink</td></tr>
+        <tr><td class="prop-name">caret-color</td><td class="prop-values">auto | &lt;color&gt;</td><td class="prop-desc">Color del cursor de texto en campos editables</td><td class="prop-example">caret-color: blue</td></tr>
+        <tr><td class="prop-name">forced-color-adjust</td><td class="prop-values">auto | none</td><td class="prop-desc">Controla si el modo de alto contraste forzado afecta al elemento</td><td class="prop-example">forced-color-adjust: none</td></tr>
+        <tr><td class="prop-name">print-color-adjust</td><td class="prop-values">economy | exact</td><td class="prop-desc">Indica si los fondos y colores se deben imprimir con exactitud</td><td class="prop-example">print-color-adjust: exact</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FLEXBOX -->
+<section class="section visible" data-section="flex">
+  <div class="section-title">
+    <span class="section-badge badge-flex">Flexbox</span>
+    <h2 class="cat-flex">Flexbox</h2>
+    <span class="count">12 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Aplica a</th><th>Valores principales</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">flex-direction</td><td class="prop-values">contenedor</td><td class="prop-values">row | row-reverse | column | column-reverse</td><td class="prop-desc">Dirección del eje principal de los flex items</td></tr>
+        <tr><td class="prop-name">flex-wrap</td><td class="prop-values">contenedor</td><td class="prop-values">nowrap | wrap | wrap-reverse</td><td class="prop-desc">Si los items se ajustan en una o varias líneas</td></tr>
+        <tr><td class="prop-name">flex-flow</td><td class="prop-values">contenedor</td><td class="prop-values">direction wrap (shorthand)</td><td class="prop-desc">Shorthand de flex-direction y flex-wrap</td></tr>
+        <tr><td class="prop-name">justify-content</td><td class="prop-values">contenedor</td><td class="prop-values">flex-start | flex-end | center | space-between | space-around | space-evenly | start | end</td><td class="prop-desc">Alineación de items en el eje principal</td></tr>
+        <tr><td class="prop-name">align-items</td><td class="prop-values">contenedor</td><td class="prop-values">stretch | flex-start | flex-end | center | baseline | first baseline | last baseline</td><td class="prop-desc">Alineación de items en el eje cruzado</td></tr>
+        <tr><td class="prop-name">align-content</td><td class="prop-values">contenedor</td><td class="prop-values">flex-start | flex-end | center | space-between | space-around | space-evenly | stretch</td><td class="prop-desc">Alineación de múltiples líneas en el eje cruzado</td></tr>
+        <tr><td class="prop-name">gap</td><td class="prop-values">contenedor</td><td class="prop-values">&lt;length&gt; (row-gap column-gap)</td><td class="prop-desc">Espacio entre items (reemplaza el antiguo grid-gap)</td></tr>
+        <tr><td class="prop-name">flex-grow</td><td class="prop-values">item</td><td class="prop-values">&lt;number&gt; (default: 0)</td><td class="prop-desc">Factor de crecimiento del item cuando hay espacio libre</td></tr>
+        <tr><td class="prop-name">flex-shrink</td><td class="prop-values">item</td><td class="prop-values">&lt;number&gt; (default: 1)</td><td class="prop-desc">Factor de contracción del item cuando no hay suficiente espacio</td></tr>
+        <tr><td class="prop-name">flex-basis</td><td class="prop-values">item</td><td class="prop-values">auto | content | &lt;length&gt; | &lt;percentage&gt;</td><td class="prop-desc">Tamaño base del item antes de distribuir espacio libre</td></tr>
+        <tr><td class="prop-name">flex</td><td class="prop-values">item</td><td class="prop-values">grow shrink basis | auto | none | 1</td><td class="prop-desc">Shorthand de flex-grow, flex-shrink y flex-basis</td></tr>
+        <tr><td class="prop-name">align-self</td><td class="prop-values">item</td><td class="prop-values">auto | flex-start | flex-end | center | baseline | stretch</td><td class="prop-desc">Anula align-items solo para este item</td></tr>
+        <tr><td class="prop-name">order</td><td class="prop-values">item</td><td class="prop-values">&lt;integer&gt; (default: 0)</td><td class="prop-desc">Orden visual del item dentro del contenedor (menor = primero)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ GRID -->
+<section class="section visible" data-section="grid">
+  <div class="section-title">
+    <span class="section-badge badge-grid">Grid</span>
+    <h2 class="cat-grid">CSS Grid</h2>
+    <span class="count">18 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Aplica a</th><th>Valores principales</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">grid-template-columns</td><td class="prop-values">contenedor</td><td class="prop-values">none | &lt;track-list&gt; | repeat() | auto | fr | minmax() | fit-content()</td><td class="prop-desc">Define el número y tamaño de las columnas</td></tr>
+        <tr><td class="prop-name">grid-template-rows</td><td class="prop-values">contenedor</td><td class="prop-values">none | &lt;track-list&gt; | repeat() | auto | fr | minmax()</td><td class="prop-desc">Define el número y tamaño de las filas</td></tr>
+        <tr><td class="prop-name">grid-template-areas</td><td class="prop-values">contenedor</td><td class="prop-values">none | &lt;string&gt; por fila</td><td class="prop-desc">Define áreas nombradas del grid con un mapa visual ASCII</td></tr>
+        <tr><td class="prop-name">grid-template</td><td class="prop-values">contenedor</td><td class="prop-values">rows / columns | areas shorthand</td><td class="prop-desc">Shorthand de grid-template-rows, -columns y -areas</td></tr>
+        <tr><td class="prop-name">grid-auto-columns</td><td class="prop-values">contenedor</td><td class="prop-values">auto | &lt;length&gt; | fr | minmax() | min-content | max-content</td><td class="prop-desc">Tamaño de columnas creadas implícitamente</td></tr>
+        <tr><td class="prop-name">grid-auto-rows</td><td class="prop-values">contenedor</td><td class="prop-values">auto | &lt;length&gt; | fr | minmax() | min-content | max-content</td><td class="prop-desc">Tamaño de filas creadas implícitamente</td></tr>
+        <tr><td class="prop-name">grid-auto-flow</td><td class="prop-values">contenedor</td><td class="prop-values">row | column | dense | row dense | column dense</td><td class="prop-desc">Cómo se colocan automáticamente los items no posicionados</td></tr>
+        <tr><td class="prop-name">grid</td><td class="prop-values">contenedor</td><td class="prop-values">shorthand completo</td><td class="prop-desc">Shorthand de todas las propiedades grid-template-* y grid-auto-*</td></tr>
+        <tr><td class="prop-name">gap / grid-gap</td><td class="prop-values">contenedor</td><td class="prop-values">&lt;length&gt; (row col)</td><td class="prop-desc">Espacio entre filas y columnas del grid</td></tr>
+        <tr><td class="prop-name">row-gap</td><td class="prop-values">contenedor</td><td class="prop-values">&lt;length&gt;</td><td class="prop-desc">Espacio entre filas</td></tr>
+        <tr><td class="prop-name">column-gap</td><td class="prop-values">contenedor</td><td class="prop-values">&lt;length&gt;</td><td class="prop-desc">Espacio entre columnas</td></tr>
+        <tr><td class="prop-name">justify-items</td><td class="prop-values">contenedor</td><td class="prop-values">start | end | center | stretch</td><td class="prop-desc">Alineación de items en el eje de columna (inline axis)</td></tr>
+        <tr><td class="prop-name">align-items</td><td class="prop-values">contenedor</td><td class="prop-values">start | end | center | stretch | baseline</td><td class="prop-desc">Alineación de items en el eje de fila (block axis)</td></tr>
+        <tr><td class="prop-name">place-items</td><td class="prop-values">contenedor</td><td class="prop-values">align-items justify-items (shorthand)</td><td class="prop-desc">Shorthand para align-items y justify-items</td></tr>
+        <tr><td class="prop-name">grid-column</td><td class="prop-values">item</td><td class="prop-values">start / end | span &lt;n&gt; | auto</td><td class="prop-desc">Posición y extensión del item en el eje de columnas</td></tr>
+        <tr><td class="prop-name">grid-row</td><td class="prop-values">item</td><td class="prop-values">start / end | span &lt;n&gt; | auto</td><td class="prop-desc">Posición y extensión del item en el eje de filas</td></tr>
+        <tr><td class="prop-name">grid-area</td><td class="prop-values">item</td><td class="prop-values">&lt;name&gt; | row-start / col-start / row-end / col-end</td><td class="prop-desc">Asigna el item a un área nombrada o define su posición completa</td></tr>
+        <tr><td class="prop-name">justify-self / align-self / place-self</td><td class="prop-values">item</td><td class="prop-values">start | end | center | stretch</td><td class="prop-desc">Alineación individual del item dentro de su celda de grid</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ TRANSFORM -->
+<section class="section visible" data-section="trans">
+  <div class="section-title">
+    <span class="section-badge badge-trans">Transform</span>
+    <h2 class="cat-trans">Transformaciones</h2>
+    <span class="count">10 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad / Función</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">transform</td><td class="prop-values">none | translate() | scale() | rotate() | skew() | matrix() | perspective() | ...3D</td><td class="prop-desc">Aplica transformaciones 2D/3D al elemento sin afectar el flujo del documento</td><td class="prop-example">transform: rotate(45deg) scale(1.2)</td></tr>
+        <tr><td class="prop-name">transform-origin</td><td class="prop-values">center | top | bottom | left | right | &lt;length&gt; | &lt;percentage&gt; (x y z)</td><td class="prop-desc">Punto de origen de las transformaciones</td><td class="prop-example">transform-origin: top left</td></tr>
+        <tr><td class="prop-name">transform-style</td><td class="prop-values">flat | preserve-3d</td><td class="prop-desc">Si los hijos se renderizan en el plano 2D o en el espacio 3D</td><td class="prop-example">transform-style: preserve-3d</td></tr>
+        <tr><td class="prop-name">perspective</td><td class="prop-values">none | &lt;length&gt;</td><td class="prop-desc">Distancia desde la vista hasta el plano z=0 (en el padre)</td><td class="prop-example">perspective: 800px</td></tr>
+        <tr><td class="prop-name">perspective-origin</td><td class="prop-values">center | &lt;percentage&gt; | &lt;length&gt; (x y)</td><td class="prop-desc">Punto de fuga de la perspectiva</td><td class="prop-example">perspective-origin: 50% 50%</td></tr>
+        <tr><td class="prop-name">backface-visibility</td><td class="prop-values">visible | hidden</td><td class="prop-desc">Si la cara trasera del elemento es visible en transformaciones 3D</td><td class="prop-example">backface-visibility: hidden</td></tr>
+        <tr><td class="prop-name">translate</td><td class="prop-values">&lt;length&gt; | &lt;percentage&gt; (x [y] [z])</td><td class="prop-desc">Propiedad individual de traslación (CSS Motion Level 2)</td><td class="prop-example">translate: 50% -10px</td></tr>
+        <tr><td class="prop-name">rotate</td><td class="prop-values">&lt;angle&gt; | x|y|z &lt;angle&gt; | &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;angle&gt;</td><td class="prop-desc">Propiedad individual de rotación (CSS Motion Level 2)</td><td class="prop-example">rotate: 45deg</td></tr>
+        <tr><td class="prop-name">scale</td><td class="prop-values">&lt;number&gt; | &lt;percentage&gt; (x [y] [z])</td><td class="prop-desc">Propiedad individual de escala (CSS Motion Level 2)</td><td class="prop-example">scale: 1.5</td></tr>
+        <tr><td class="prop-name">offset / offset-path / offset-distance / offset-rotate</td><td class="prop-values">path() | url() | basic-shape | &lt;percentage&gt; | auto</td><td class="prop-desc">Anima elementos a lo largo de un camino (motion path)</td><td class="prop-example">offset-path: path('M 0 0 L 300 300')</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ANIMATION -->
+<section class="section visible" data-section="anim">
+  <div class="section-title">
+    <span class="section-badge badge-anim">Animación</span>
+    <h2 class="cat-anim">Transiciones & Animaciones</h2>
+    <span class="count">18 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">transition</td><td class="prop-values">property duration timing-function delay (shorthand)</td><td class="prop-desc">Anima suavemente cambios de propiedades CSS</td><td class="prop-example">transition: all 0.3s ease</td></tr>
+        <tr><td class="prop-name">transition-property</td><td class="prop-values">all | none | &lt;property-name&gt;</td><td class="prop-desc">Qué propiedad(es) tendrán transición</td><td class="prop-example">transition-property: opacity, transform</td></tr>
+        <tr><td class="prop-name">transition-duration</td><td class="prop-values">&lt;time&gt; (s, ms)</td><td class="prop-desc">Duración de la transición</td><td class="prop-example">transition-duration: 300ms</td></tr>
+        <tr><td class="prop-name">transition-timing-function</td><td class="prop-values">ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | cubic-bezier() | steps()</td><td class="prop-desc">Curva de velocidad de la transición</td><td class="prop-example">transition-timing-function: cubic-bezier(.4,0,.2,1)</td></tr>
+        <tr><td class="prop-name">transition-delay</td><td class="prop-values">&lt;time&gt; (s, ms)</td><td class="prop-desc">Tiempo antes de que inicie la transición</td><td class="prop-example">transition-delay: 100ms</td></tr>
+        <tr><td class="prop-name">animation</td><td class="prop-values">name duration timing delay iteration direction fill-mode play-state (shorthand)</td><td class="prop-desc">Shorthand de todas las propiedades animation-*</td><td class="prop-example">animation: fade 1s ease infinite</td></tr>
+        <tr><td class="prop-name">animation-name</td><td class="prop-values">none | &lt;@keyframes-name&gt;</td><td class="prop-desc">Nombre del @keyframes a ejecutar</td><td class="prop-example">animation-name: slideIn</td></tr>
+        <tr><td class="prop-name">animation-duration</td><td class="prop-values">&lt;time&gt;</td><td class="prop-desc">Duración de un ciclo de la animación</td><td class="prop-example">animation-duration: 2s</td></tr>
+        <tr><td class="prop-name">animation-timing-function</td><td class="prop-values">ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier() | steps()</td><td class="prop-desc">Curva de velocidad de la animación</td><td class="prop-example">animation-timing-function: ease-in-out</td></tr>
+        <tr><td class="prop-name">animation-delay</td><td class="prop-values">&lt;time&gt;</td><td class="prop-desc">Espera antes de iniciar la animación</td><td class="prop-example">animation-delay: 0.5s</td></tr>
+        <tr><td class="prop-name">animation-iteration-count</td><td class="prop-values">infinite | &lt;number&gt;</td><td class="prop-desc">Número de veces que se repite la animación</td><td class="prop-example">animation-iteration-count: infinite</td></tr>
+        <tr><td class="prop-name">animation-direction</td><td class="prop-values">normal | reverse | alternate | alternate-reverse</td><td class="prop-desc">Dirección de reproducción de la animación</td><td class="prop-example">animation-direction: alternate</td></tr>
+        <tr><td class="prop-name">animation-fill-mode</td><td class="prop-values">none | forwards | backwards | both</td><td class="prop-desc">Qué estilos aplican antes/después de la animación</td><td class="prop-example">animation-fill-mode: forwards</td></tr>
+        <tr><td class="prop-name">animation-play-state</td><td class="prop-values">running | paused</td><td class="prop-desc">Permite pausar y reanudar la animación</td><td class="prop-example">animation-play-state: paused</td></tr>
+        <tr><td class="prop-name">animation-composition</td><td class="prop-values">replace | add | accumulate</td><td class="prop-desc">Cómo se combina el valor animado con el del elemento</td><td class="prop-example">animation-composition: add</td></tr>
+        <tr><td class="prop-name">@keyframes</td><td class="prop-values">from/to | 0%-100%</td><td class="prop-desc">Define los pasos clave de una animación CSS</td><td class="prop-example">@keyframes pulse { 0%{scale:1} 50%{scale:1.1} }</td></tr>
+        <tr><td class="prop-name">will-change</td><td class="prop-values">auto | scroll-position | contents | transform | opacity | &lt;property&gt;</td><td class="prop-desc">Avisa al navegador de qué propiedades cambiarán para que las optimice</td><td class="prop-example">will-change: transform, opacity</td></tr>
+        <tr><td class="prop-name">scroll-behavior</td><td class="prop-values">auto | smooth</td><td class="prop-desc">Anima el scroll de la página al navegar a anclas</td><td class="prop-example">scroll-behavior: smooth</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FILTERS -->
+<section class="section visible" data-section="filter">
+  <div class="section-title">
+    <span class="section-badge badge-filter">Filtros</span>
+    <h2 class="cat-filter">Filtros & Efectos Visuales</h2>
+    <span class="count">12 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad / Función</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">filter</td><td class="prop-values">none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia() | url()</td><td class="prop-desc">Aplica efectos visuales al elemento y su contenido</td><td class="prop-example">filter: blur(4px) brightness(0.8)</td></tr>
+        <tr><td class="prop-name">backdrop-filter</td><td class="prop-values">(mismas funciones que filter)</td><td class="prop-desc">Aplica filtros al área detrás del elemento (glassmorphism)</td><td class="prop-example">backdrop-filter: blur(12px)</td></tr>
+        <tr><td class="prop-name">blur()</td><td class="prop-values">&lt;length&gt;</td><td class="prop-desc">Desenfoca el elemento por la cantidad especificada</td><td class="prop-example">filter: blur(8px)</td></tr>
+        <tr><td class="prop-name">brightness()</td><td class="prop-values">0 – 1+ (o %)</td><td class="prop-desc">Ajusta el brillo (0=negro, 1=original, >1=más brillante)</td><td class="prop-example">filter: brightness(1.5)</td></tr>
+        <tr><td class="prop-name">contrast()</td><td class="prop-values">0 – 1+ (o %)</td><td class="prop-desc">Ajusta el contraste de la imagen</td><td class="prop-example">filter: contrast(200%)</td></tr>
+        <tr><td class="prop-name">grayscale()</td><td class="prop-values">0 – 1 (o %)</td><td class="prop-desc">Convierte a escala de grises</td><td class="prop-example">filter: grayscale(100%)</td></tr>
+        <tr><td class="prop-name">hue-rotate()</td><td class="prop-values">&lt;angle&gt;</td><td class="prop-desc">Rota el matiz del color en grados (0–360)</td><td class="prop-example">filter: hue-rotate(90deg)</td></tr>
+        <tr><td class="prop-name">invert()</td><td class="prop-values">0 – 1 (o %)</td><td class="prop-desc">Invierte los colores del elemento</td><td class="prop-example">filter: invert(1)</td></tr>
+        <tr><td class="prop-name">opacity()</td><td class="prop-values">0 – 1 (o %)</td><td class="prop-desc">Transparencia (como la propiedad opacity pero en filtros)</td><td class="prop-example">filter: opacity(0.5)</td></tr>
+        <tr><td class="prop-name">saturate()</td><td class="prop-values">0 – 1+ (o %)</td><td class="prop-desc">Ajusta la saturación del color</td><td class="prop-example">filter: saturate(2)</td></tr>
+        <tr><td class="prop-name">sepia()</td><td class="prop-values">0 – 1 (o %)</td><td class="prop-desc">Aplica un tono sepia vintage</td><td class="prop-example">filter: sepia(0.8)</td></tr>
+        <tr><td class="prop-name">drop-shadow()</td><td class="prop-values">x y blur color</td><td class="prop-desc">Sombra que sigue la forma real del elemento (a diferencia de box-shadow)</td><td class="prop-example">filter: drop-shadow(2px 4px 6px black)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ PSEUDOCLASES -->
+<section class="section visible" data-section="pseudo">
+  <div class="section-title">
+    <span class="section-badge badge-pseudo">Pseudoclases</span>
+    <h2 class="cat-pseudo">Pseudoclases</h2>
+    <span class="count">50+</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Pseudoclase</th><th>Categoría</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">:hover</td><td class="prop-values">Interacción</td><td class="prop-desc">Elemento sobre el que está el cursor del ratón</td><td class="prop-example">a:hover { color: red }</td></tr>
+        <tr><td class="prop-name">:focus</td><td class="prop-values">Interacción</td><td class="prop-desc">Elemento que tiene el foco (teclado o clic)</td><td class="prop-example">input:focus { outline: 2px solid blue }</td></tr>
+        <tr><td class="prop-name">:focus-visible</td><td class="prop-values">Interacción</td><td class="prop-desc">Foco visible solo cuando es navegación por teclado (no por clic)</td><td class="prop-example">button:focus-visible { outline: 2px solid blue }</td></tr>
+        <tr><td class="prop-name">:focus-within</td><td class="prop-values">Interacción</td><td class="prop-desc">Elemento que contiene a un descendiente con foco</td><td class="prop-example">form:focus-within { border-color: blue }</td></tr>
+        <tr><td class="prop-name">:active</td><td class="prop-values">Interacción</td><td class="prop-desc">Elemento siendo activado (mientras se hace clic)</td><td class="prop-example">button:active { scale: 0.95 }</td></tr>
+        <tr><td class="prop-name">:visited</td><td class="prop-values">Enlace</td><td class="prop-desc">Enlace ya visitado por el usuario</td><td class="prop-example">a:visited { color: purple }</td></tr>
+        <tr><td class="prop-name">:link</td><td class="prop-values">Enlace</td><td class="prop-desc">Enlace no visitado todavía</td><td class="prop-example">a:link { color: blue }</td></tr>
+        <tr><td class="prop-name">:any-link</td><td class="prop-values">Enlace</td><td class="prop-desc">Cualquier enlace (visitado o no), equivale a :link + :visited</td><td class="prop-example">:any-link { text-decoration: none }</td></tr>
+        <tr><td class="prop-name">:local-link</td><td class="prop-values">Enlace</td><td class="prop-desc">Enlace que apunta al mismo documento</td><td class="prop-example">:local-link { color: green }</td></tr>
+        <tr><td class="prop-name">:target</td><td class="prop-values">Estructura</td><td class="prop-desc">Elemento cuyo id coincide con el fragmento (#hash) de la URL actual</td><td class="prop-example">#section:target { background: yellow }</td></tr>
+        <tr><td class="prop-name">:target-within</td><td class="prop-values">Estructura</td><td class="prop-desc">Elemento que contiene al target actual</td><td class="prop-example">div:target-within { border: 1px solid }</td></tr>
+        <tr><td class="prop-name">:root</td><td class="prop-values">Estructura</td><td class="prop-desc">Elemento raíz del documento (en HTML es &lt;html&gt;, de mayor especificidad que html)</td><td class="prop-example">:root { --color: blue }</td></tr>
+        <tr><td class="prop-name">:empty</td><td class="prop-values">Estructura</td><td class="prop-desc">Elemento sin hijos ni texto (incluyendo espacios)</td><td class="prop-example">p:empty { display: none }</td></tr>
+        <tr><td class="prop-name">:first-child</td><td class="prop-values">Hijos</td><td class="prop-desc">Primer hijo de su padre</td><td class="prop-example">li:first-child { font-weight: bold }</td></tr>
+        <tr><td class="prop-name">:last-child</td><td class="prop-values">Hijos</td><td class="prop-desc">Último hijo de su padre</td><td class="prop-example">li:last-child { border: none }</td></tr>
+        <tr><td class="prop-name">:nth-child(n)</td><td class="prop-values">Hijos</td><td class="prop-desc">Hijo en la posición n (acepta: 2n, odd, even, 2n+1, etc.)</td><td class="prop-example">tr:nth-child(even) { background: #f0f0f0 }</td></tr>
+        <tr><td class="prop-name">:nth-last-child(n)</td><td class="prop-values">Hijos</td><td class="prop-desc">Hijo en posición n contando desde el final</td><td class="prop-example">li:nth-last-child(2) { color: red }</td></tr>
+        <tr><td class="prop-name">:only-child</td><td class="prop-values">Hijos</td><td class="prop-desc">Elemento que es el único hijo de su padre</td><td class="prop-example">p:only-child { margin: 0 }</td></tr>
+        <tr><td class="prop-name">:first-of-type</td><td class="prop-values">Tipo</td><td class="prop-desc">Primer elemento de su tipo dentro del padre</td><td class="prop-example">p:first-of-type { text-indent: 2em }</td></tr>
+        <tr><td class="prop-name">:last-of-type</td><td class="prop-values">Tipo</td><td class="prop-desc">Último elemento de su tipo dentro del padre</td><td class="prop-example">h2:last-of-type { margin-bottom: 0 }</td></tr>
+        <tr><td class="prop-name">:nth-of-type(n)</td><td class="prop-values">Tipo</td><td class="prop-desc">Enésimo elemento de su tipo dentro del padre</td><td class="prop-example">img:nth-of-type(3) { width: 100% }</td></tr>
+        <tr><td class="prop-name">:nth-last-of-type(n)</td><td class="prop-values">Tipo</td><td class="prop-desc">Enésimo elemento de su tipo contando desde el final</td><td class="prop-example">p:nth-last-of-type(1) { color: gray }</td></tr>
+        <tr><td class="prop-name">:only-of-type</td><td class="prop-values">Tipo</td><td class="prop-desc">Único elemento de su tipo dentro del padre</td><td class="prop-example">img:only-of-type { display: block }</td></tr>
+        <tr><td class="prop-name">:not(selector)</td><td class="prop-values">Negación</td><td class="prop-desc">Elementos que NO coinciden con el selector dado</td><td class="prop-example">li:not(:last-child) { border-bottom: 1px solid }</td></tr>
+        <tr><td class="prop-name">:is(selector)</td><td class="prop-values">Funcional</td><td class="prop-desc">Coincide con cualquier elemento de la lista de selectores (pseudo-clase forgiving)</td><td class="prop-example">:is(h1,h2,h3) { font-weight: bold }</td></tr>
+        <tr><td class="prop-name">:where(selector)</td><td class="prop-values">Funcional</td><td class="prop-desc">Igual que :is() pero con especificidad 0 (no suma especificidad)</td><td class="prop-example">:where(section, article) p { margin: 0 }</td></tr>
+        <tr><td class="prop-name">:has(selector)</td><td class="prop-values">Funcional</td><td class="prop-desc">Selecciona un elemento que CONTIENE al selector dado (selector padre)</td><td class="prop-example">div:has(> img) { padding: 0 }</td></tr>
+        <tr><td class="prop-name">:matches()</td><td class="prop-values">Funcional</td><td class="prop-desc">Alias antiguo de :is() (obsoleto, usar :is)</td><td class="prop-example">:matches(h1,h2) { color: blue }</td></tr>
+        <tr><td class="prop-name">:enabled</td><td class="prop-values">Formulario</td><td class="prop-desc">Control de formulario habilitado</td><td class="prop-example">input:enabled { border-color: green }</td></tr>
+        <tr><td class="prop-name">:disabled</td><td class="prop-values">Formulario</td><td class="prop-desc">Control de formulario deshabilitado (atributo disabled)</td><td class="prop-example">button:disabled { opacity: 0.4 }</td></tr>
+        <tr><td class="prop-name">:checked</td><td class="prop-values">Formulario</td><td class="prop-desc">Checkbox, radio o option que está seleccionado/marcado</td><td class="prop-example">input:checked + label { color: blue }</td></tr>
+        <tr><td class="prop-name">:indeterminate</td><td class="prop-values">Formulario</td><td class="prop-desc">Checkbox en estado indeterminado (ni marcado ni desmarcado)</td><td class="prop-example">input:indeterminate { opacity: 0.7 }</td></tr>
+        <tr><td class="prop-name">:required</td><td class="prop-values">Formulario</td><td class="prop-desc">Input con atributo required</td><td class="prop-example">input:required { border-color: red }</td></tr>
+        <tr><td class="prop-name">:optional</td><td class="prop-values">Formulario</td><td class="prop-desc">Input sin atributo required</td><td class="prop-example">input:optional { border-style: dashed }</td></tr>
+        <tr><td class="prop-name">:valid</td><td class="prop-values">Formulario</td><td class="prop-desc">Input cuyo valor pasa la validación HTML5</td><td class="prop-example">input:valid { border-color: green }</td></tr>
+        <tr><td class="prop-name">:invalid</td><td class="prop-values">Formulario</td><td class="prop-desc">Input cuyo valor NO pasa la validación HTML5</td><td class="prop-example">input:invalid { border-color: red }</td></tr>
+        <tr><td class="prop-name">:in-range</td><td class="prop-values">Formulario</td><td class="prop-desc">Input numérico cuyo valor está dentro del rango min/max</td><td class="prop-example">input:in-range { border-color: green }</td></tr>
+        <tr><td class="prop-name">:out-of-range</td><td class="prop-values">Formulario</td><td class="prop-desc">Input numérico cuyo valor está fuera del rango min/max</td><td class="prop-example">input:out-of-range { border-color: red }</td></tr>
+        <tr><td class="prop-name">:placeholder-shown</td><td class="prop-values">Formulario</td><td class="prop-desc">Input que está mostrando su placeholder (campo vacío)</td><td class="prop-example">input:placeholder-shown { font-style: italic }</td></tr>
+        <tr><td class="prop-name">:autofill</td><td class="prop-values">Formulario</td><td class="prop-desc">Input rellenado automáticamente por el navegador</td><td class="prop-example">input:autofill { background: lightyellow }</td></tr>
+        <tr><td class="prop-name">:read-only</td><td class="prop-values">Formulario</td><td class="prop-desc">Input con atributo readonly</td><td class="prop-example">input:read-only { background: #f5f5f5 }</td></tr>
+        <tr><td class="prop-name">:read-write</td><td class="prop-values">Formulario</td><td class="prop-desc">Input editable (sin readonly, o contenteditable)</td><td class="prop-example">input:read-write { background: white }</td></tr>
+        <tr><td class="prop-name">:default</td><td class="prop-values">Formulario</td><td class="prop-desc">Elemento de formulario seleccionado por defecto en el grupo</td><td class="prop-example">option:default { font-weight: bold }</td></tr>
+        <tr><td class="prop-name">:user-valid / :user-invalid</td><td class="prop-values">Formulario</td><td class="prop-desc">Como :valid/:invalid pero solo tras interacción del usuario</td><td class="prop-example">input:user-invalid { outline: 2px solid red }</td></tr>
+        <tr><td class="prop-name">:lang(code)</td><td class="prop-values">Idioma</td><td class="prop-desc">Elementos cuyo idioma declarado coincide con el código dado</td><td class="prop-example">p:lang(es) { hyphens: auto }</td></tr>
+        <tr><td class="prop-name">:dir(ltr|rtl)</td><td class="prop-values">Idioma</td><td class="prop-desc">Elementos con dirección de texto LTR o RTL</td><td class="prop-example">:dir(rtl) { text-align: right }</td></tr>
+        <tr><td class="prop-name">:fullscreen</td><td class="prop-values">UI</td><td class="prop-desc">Elemento en modo pantalla completa (Fullscreen API)</td><td class="prop-example">:fullscreen { background: black }</td></tr>
+        <tr><td class="prop-name">:picture-in-picture</td><td class="prop-values">UI</td><td class="prop-desc">Elemento de video en modo Picture-in-Picture</td><td class="prop-example">video:picture-in-picture { opacity: 0.5 }</td></tr>
+        <tr><td class="prop-name">:modal</td><td class="prop-values">UI</td><td class="prop-desc">Elemento en modo modal (diálogos abiertos con showModal())</td><td class="prop-example">dialog:modal { max-width: 500px }</td></tr>
+        <tr><td class="prop-name">:defined</td><td class="prop-values">Web Components</td><td class="prop-desc">Elemento cuyo nombre está definido (nativo o custom element registrado)</td><td class="prop-example">my-el:defined { display: block }</td></tr>
+        <tr><td class="prop-name">:host</td><td class="prop-values">Shadow DOM</td><td class="prop-desc">Shadow host desde dentro del shadow tree</td><td class="prop-example">:host { display: block }</td></tr>
+        <tr><td class="prop-name">:host()</td><td class="prop-values">Shadow DOM</td><td class="prop-desc">Shadow host que coincide con el selector dado</td><td class="prop-example">:host(.active) { opacity: 1 }</td></tr>
+        <tr><td class="prop-name">:host-context()</td><td class="prop-values">Shadow DOM</td><td class="prop-desc">Shadow host cuando algún ancestro coincide con el selector</td><td class="prop-example">:host-context(.dark) { color: white }</td></tr>
+        <tr><td class="prop-name">:state()</td><td class="prop-values">Web Components</td><td class="prop-desc">Custom state de un Custom Element (Custom States API)</td><td class="prop-example">toggle-button:state(checked) { ... }</td></tr>
+        <tr><td class="prop-name">:nth-child(n of S)</td><td class="prop-values">Avanzada</td><td class="prop-desc">Enésimo hijo que coincide con el selector S (CSS Selectors 4)</td><td class="prop-example">:nth-child(2 of .card) { margin: 0 }</td></tr>
+        <tr><td class="prop-name">:scope</td><td class="prop-values">Contexto</td><td class="prop-desc">Elemento que sirve de scope del selector (en @scope = elemento raíz del scope)</td><td class="prop-example">@scope(.card) { :scope { padding: 1rem } }</td></tr>
+        <tr><td class="prop-name">:global / :local</td><td class="prop-values">CSS Modules</td><td class="prop-desc">Cambia el alcance del selector entre global y local en CSS Modules</td><td class="prop-example">:global(.active) { ... }</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ PSEUDOELEMENTOS -->
+<section class="section visible" data-section="pseudoel">
+  <div class="section-title">
+    <span class="section-badge badge-pseudo">Pseudoelementos</span>
+    <h2 class="cat-pseudo">Pseudoelementos</h2>
+    <span class="count">25+</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Pseudoelemento</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">::before</td><td class="prop-desc">Inserta un pseudo-elemento antes del contenido del elemento. Requiere property content. No existe en el DOM pero es seleccionable con JS</td><td class="prop-example">p::before { content: '»'; color: red }</td></tr>
+        <tr><td class="prop-name">::after</td><td class="prop-desc">Inserta un pseudo-elemento después del contenido del elemento. Muy usado para decoración y clearfix</td><td class="prop-example">a::after { content: ' ↗' }</td></tr>
+        <tr><td class="prop-name">::first-line</td><td class="prop-desc">Primera línea de texto de un bloque (cambia con el tamaño de la ventana). Solo acepta ciertas propiedades</td><td class="prop-example">p::first-line { font-weight: bold }</td></tr>
+        <tr><td class="prop-name">::first-letter</td><td class="prop-desc">Primera letra del primer bloque de texto. Útil para capitulares (drop cap). Solo acepta ciertas propiedades</td><td class="prop-example">p::first-letter { font-size: 3em; float: left }</td></tr>
+        <tr><td class="prop-name">::selection</td><td class="prop-desc">Texto seleccionado por el usuario. Acepta: color, background-color, text-shadow</td><td class="prop-example">::selection { background: #7c6aff; color: white }</td></tr>
+        <tr><td class="prop-name">::placeholder</td><td class="prop-desc">Texto placeholder de inputs y textareas</td><td class="prop-example">input::placeholder { color: gray; font-style: italic }</td></tr>
+        <tr><td class="prop-name">::marker</td><td class="prop-desc">Marcador de elementos de lista (viñeta o número). Acepta color, font, content</td><td class="prop-example">li::marker { color: red; content: '▸ ' }</td></tr>
+        <tr><td class="prop-name">::file-selector-button</td><td class="prop-desc">Botón del input type="file" para seleccionar archivos</td><td class="prop-example">input[type=file]::file-selector-button { background: blue; color: white }</td></tr>
+        <tr><td class="prop-name">::backdrop</td><td class="prop-desc">Capa que aparece detrás de elementos en fullscreen, dialog modal y popover</td><td class="prop-example">dialog::backdrop { background: rgba(0,0,0,.5) }</td></tr>
+        <tr><td class="prop-name">::spelling-error</td><td class="prop-desc">Texto marcado como error ortográfico por el navegador</td><td class="prop-example">::spelling-error { text-decoration: red wavy underline }</td></tr>
+        <tr><td class="prop-name">::grammar-error</td><td class="prop-desc">Texto marcado como error gramatical por el navegador</td><td class="prop-example">::grammar-error { text-decoration: green wavy underline }</td></tr>
+        <tr><td class="prop-name">::cue</td><td class="prop-desc">Subtítulos WebVTT de elementos de video. Estiliza los captions</td><td class="prop-example">video::cue { background: rgba(0,0,0,.8); color: white }</td></tr>
+        <tr><td class="prop-name">::cue(selector)</td><td class="prop-desc">Subtítulos WebVTT que coinciden con el selector dado</td><td class="prop-example">video::cue(b) { color: yellow }</td></tr>
+        <tr><td class="prop-name">::part(name)</td><td class="prop-desc">Estiliza partes exportadas de un Shadow DOM (marcadas con atributo part)</td><td class="prop-example">custom-btn::part(icon) { color: red }</td></tr>
+        <tr><td class="prop-name">::slotted(selector)</td><td class="prop-desc">Nodos insertados en un slot de un web component (desde dentro del shadow tree)</td><td class="prop-example">::slotted(p) { color: blue }</td></tr>
+        <tr><td class="prop-name">::scroll-marker</td><td class="prop-desc">Marcador de posición en scroll (CSS Scroll Snap Level 2, experimental)</td><td class="prop-example">::scroll-marker { content: '' }</td></tr>
+        <tr><td class="prop-name">::column</td><td class="prop-desc">Columna de un contenedor multi-column (experimental)</td><td class="prop-example">::column { border-right: 1px solid #ccc }</td></tr>
+        <tr><td class="prop-name">::target-text</td><td class="prop-desc">Fragmento de texto resaltado por un Text Fragment URL (#:~:text=...)</td><td class="prop-example">::target-text { background: yellow }</td></tr>
+        <tr><td class="prop-name">::highlight(name)</td><td class="prop-desc">Resaltados personalizados creados con la Custom Highlight API de JavaScript</td><td class="prop-example">::highlight(my-mark) { background: pink }</td></tr>
+        <tr><td class="prop-name">::view-transition</td><td class="prop-desc">Raíz del sistema de View Transitions (transiciones entre páginas/vistas)</td><td class="prop-example">::view-transition { pointer-events: none }</td></tr>
+        <tr><td class="prop-name">::view-transition-image-pair(name)</td><td class="prop-desc">Par de imágenes de la transición (vieja+nueva) de un elemento específico</td><td class="prop-example">::view-transition-image-pair(hero) { isolation: isolate }</td></tr>
+        <tr><td class="prop-name">::view-transition-old(name)</td><td class="prop-desc">Captura de pantalla antigua durante una View Transition</td><td class="prop-example">::view-transition-old(root) { animation: fade 0.3s }</td></tr>
+        <tr><td class="prop-name">::view-transition-new(name)</td><td class="prop-desc">Captura de pantalla nueva durante una View Transition</td><td class="prop-example">::view-transition-new(root) { animation: fade 0.3s }</td></tr>
+        <tr><td class="prop-name">::scroll-marker-group</td><td class="prop-desc">Grupo de marcadores de scroll (experimental, CSS Carousel)</td><td class="prop-example">.carousel::scroll-marker-group { display: flex }</td></tr>
+        <tr><td class="prop-name">::details-content</td><td class="prop-desc">Contenido del elemento &lt;details&gt; que se expande y colapsa</td><td class="prop-example">details::details-content { padding: 1rem }</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ MISC -->
+<section class="section visible" data-section="misc">
+  <div class="section-title">
+    <span class="section-badge badge-misc">Misc</span>
+    <h2 class="cat-misc">Variables, At-rules & Misceláneos</h2>
+    <span class="count">30 props</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Propiedad / At-rule</th><th>Valores principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">--custom-property</td><td class="prop-values">cualquier valor CSS</td><td class="prop-desc">Variable CSS personalizada. Se define con -- y se usa con var()</td><td class="prop-example">--color: #ff6a9b</td></tr>
+        <tr><td class="prop-name">var()</td><td class="prop-values">--prop [, fallback]</td><td class="prop-desc">Inserta el valor de una variable CSS. Admite fallback</td><td class="prop-example">color: var(--color, red)</td></tr>
+        <tr><td class="prop-name">calc()</td><td class="prop-values">expresión matemática</td><td class="prop-desc">Calcula valores CSS dinámicamente con +, -, *, /</td><td class="prop-example">width: calc(100% - 2rem)</td></tr>
+        <tr><td class="prop-name">min() / max()</td><td class="prop-values">valor1, valor2, ...</td><td class="prop-desc">Devuelve el menor/mayor valor de la lista</td><td class="prop-example">font-size: min(5vw, 2rem)</td></tr>
+        <tr><td class="prop-name">clamp()</td><td class="prop-values">min, ideal, max</td><td class="prop-desc">Limita un valor entre un mínimo y un máximo</td><td class="prop-example">font-size: clamp(1rem, 2.5vw, 2rem)</td></tr>
+        <tr><td class="prop-name">content</td><td class="prop-values">'' | 'text' | url() | attr() | counter() | open-quote | close-quote | none | normal</td><td class="prop-desc">Contenido generado para ::before y ::after</td><td class="prop-example">content: attr(data-label)</td></tr>
+        <tr><td class="prop-name">pointer-events</td><td class="prop-values">auto | none | all | visiblePainted | visibleFill | ...</td><td class="prop-desc">Si el elemento puede recibir eventos de ratón/touch</td><td class="prop-example">pointer-events: none</td></tr>
+        <tr><td class="prop-name">user-select</td><td class="prop-values">auto | none | text | all | contain</td><td class="prop-desc">Si el usuario puede seleccionar el texto del elemento</td><td class="prop-example">user-select: none</td></tr>
+        <tr><td class="prop-name">touch-action</td><td class="prop-values">auto | none | pan-x | pan-y | pinch-zoom | manipulation | ...</td><td class="prop-desc">Qué gestos táctiles maneja el navegador vs el JS</td><td class="prop-example">touch-action: pan-y</td></tr>
+        <tr><td class="prop-name">scroll-snap-type</td><td class="prop-values">none | x | y | block | inline | both + mandatory | proximity</td><td class="prop-desc">Activa el scroll snapping en el contenedor</td><td class="prop-example">scroll-snap-type: x mandatory</td></tr>
+        <tr><td class="prop-name">scroll-snap-align</td><td class="prop-values">none | start | end | center (block inline)</td><td class="prop-desc">Punto de anclaje del item para el scroll snap</td><td class="prop-example">scroll-snap-align: start</td></tr>
+        <tr><td class="prop-name">scroll-snap-stop</td><td class="prop-values">normal | always</td><td class="prop-desc">Si el scroll puede saltar este snap point</td><td class="prop-example">scroll-snap-stop: always</td></tr>
+        <tr><td class="prop-name">overscroll-behavior</td><td class="prop-values">auto | contain | none (x y)</td><td class="prop-desc">Controla el comportamiento al llegar al borde del scroll</td><td class="prop-example">overscroll-behavior: contain</td></tr>
+        <tr><td class="prop-name">counter-reset</td><td class="prop-values">&lt;ident&gt; &lt;integer&gt;?</td><td class="prop-desc">Inicializa o resetea un contador CSS</td><td class="prop-example">counter-reset: section 0</td></tr>
+        <tr><td class="prop-name">counter-increment</td><td class="prop-values">&lt;ident&gt; &lt;integer&gt;?</td><td class="prop-desc">Incrementa un contador CSS</td><td class="prop-example">counter-increment: section 1</td></tr>
+        <tr><td class="prop-name">counter()</td><td class="prop-values">ident [, list-style-type]</td><td class="prop-desc">Inserta el valor actual de un contador (en content)</td><td class="prop-example">content: counter(section)</td></tr>
+        <tr><td class="prop-name">list-style</td><td class="prop-values">type position image (shorthand)</td><td class="prop-desc">Shorthand para el estilo, posición e imagen de lista</td><td class="prop-example">list-style: disc inside</td></tr>
+        <tr><td class="prop-name">list-style-type</td><td class="prop-values">disc | circle | square | decimal | lower-alpha | upper-roman | none | &lt;string&gt;</td><td class="prop-desc">Tipo de marcador de lista</td><td class="prop-example">list-style-type: '→ '</td></tr>
+        <tr><td class="prop-name">list-style-position</td><td class="prop-values">inside | outside</td><td class="prop-desc">Si el marcador está dentro o fuera del flujo del texto</td><td class="prop-example">list-style-position: inside</td></tr>
+        <tr><td class="prop-name">appearance</td><td class="prop-values">none | auto | button | checkbox | radio | menulist | textfield | ...</td><td class="prop-desc">Anula el estilo nativo del sistema operativo</td><td class="prop-example">appearance: none</td></tr>
+        <tr><td class="prop-name">columns</td><td class="prop-values">count width (shorthand)</td><td class="prop-desc">Shorthand para multi-column layout</td><td class="prop-example">columns: 3 200px</td></tr>
+        <tr><td class="prop-name">column-count</td><td class="prop-values">auto | &lt;integer&gt;</td><td class="prop-desc">Número de columnas en multi-column</td><td class="prop-example">column-count: 3</td></tr>
+        <tr><td class="prop-name">column-gap</td><td class="prop-values">normal | &lt;length&gt;</td><td class="prop-desc">Espacio entre columnas en multi-column</td><td class="prop-example">column-gap: 2rem</td></tr>
+        <tr><td class="prop-name">column-rule</td><td class="prop-values">width style color (shorthand)</td><td class="prop-desc">Línea divisoria entre columnas</td><td class="prop-example">column-rule: 1px solid #ccc</td></tr>
+        <tr><td class="prop-name">column-span</td><td class="prop-values">none | all</td><td class="prop-desc">Si el elemento se extiende por todas las columnas</td><td class="prop-example">h2 { column-span: all }</td></tr>
+        <tr><td class="prop-name">@media</td><td class="prop-values">width | height | orientation | color | prefers-color-scheme | prefers-reduced-motion | hover | pointer | ...</td><td class="prop-desc">Aplica estilos condicionalmente según características del dispositivo</td><td class="prop-example">@media (max-width: 768px) { ... }</td></tr>
+        <tr><td class="prop-name">@container</td><td class="prop-values">width | height | inline-size | aspect-ratio | orientation</td><td class="prop-desc">Aplica estilos según el tamaño del contenedor padre (container queries)</td><td class="prop-example">@container (min-width: 400px) { ... }</td></tr>
+        <tr><td class="prop-name">@layer</td><td class="prop-values">&lt;layer-name&gt;</td><td class="prop-desc">Organiza los estilos en capas con cascada predecible</td><td class="prop-example">@layer base, components, utilities</td></tr>
+        <tr><td class="prop-name">@supports</td><td class="prop-values">property: value | selector() | not | and | or</td><td class="prop-desc">Aplica estilos solo si el navegador soporta una función CSS</td><td class="prop-example">@supports (display: grid) { ... }</td></tr>
+        <tr><td class="prop-name">@scope</td><td class="prop-values">selector (limit)?</td><td class="prop-desc">Limita el alcance de selectores a un árbol de DOM específico</td><td class="prop-example">@scope (.card) { p { color: blue } }</td></tr>
+        <tr><td class="prop-name">@font-face</td><td class="prop-values">font-family, src, weight, style, display</td><td class="prop-desc">Carga una fuente personalizada desde una URL o archivo local</td><td class="prop-example">@font-face { font-family: 'Mi'; src: url(f.woff2) }</td></tr>
+        <tr><td class="prop-name">@import</td><td class="prop-values">url() [media] [supports()]</td><td class="prop-desc">Importa otra hoja de estilos CSS</td><td class="prop-example">@import url('vars.css')</td></tr>
+        <tr><td class="prop-name">view-transition-name</td><td class="prop-values">none | &lt;ident&gt;</td><td class="prop-desc">Asigna un nombre único al elemento para View Transitions</td><td class="prop-example">view-transition-name: hero-image</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════ HTML -->
+<section class="section visible" data-section="html">
+  <div class="section-title">
+    <span class="section-badge badge-html">HTML</span>
+    <h2 class="cat-html">Etiquetas HTML — Referencia Completa</h2>
+    <span class="count">100+ etiquetas</span>
+  </div>
+
+  <!-- DOCUMENTO -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Estructura del documento</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;!DOCTYPE html&gt;</td><td class="prop-values">—</td><td class="prop-desc">Declaración del tipo de documento HTML5 (obligatoria, va primero)</td><td class="prop-example">&lt;!DOCTYPE html&gt;</td></tr>
+        <tr><td class="prop-name">&lt;html&gt;</td><td class="prop-values">lang, dir</td><td class="prop-desc">Elemento raíz de toda la página HTML</td><td class="prop-example">&lt;html lang="es"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;head&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenedor de metadatos: no visible en pantalla</td><td class="prop-example">&lt;head&gt;...&lt;/head&gt;</td></tr>
+        <tr><td class="prop-name">&lt;title&gt;</td><td class="prop-values">—</td><td class="prop-desc">Título de la pestaña del navegador y resultado en buscadores</td><td class="prop-example">&lt;title&gt;Mi página&lt;/title&gt;</td></tr>
+        <tr><td class="prop-name">&lt;meta&gt;</td><td class="prop-values">charset, name, content, http-equiv, property, viewport</td><td class="prop-desc">Metadatos de la página (codificación, descripción, viewport, OG, etc.)</td><td class="prop-example">&lt;meta charset="UTF-8"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;link&gt;</td><td class="prop-values">rel, href, type, media, sizes, as, crossorigin</td><td class="prop-desc">Vincula recursos externos: CSS, favicons, fuentes, preload</td><td class="prop-example">&lt;link rel="stylesheet" href="style.css"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;style&gt;</td><td class="prop-values">media, scoped</td><td class="prop-desc">CSS embebido directamente en el documento HTML</td><td class="prop-example">&lt;style&gt; body { margin:0 } &lt;/style&gt;</td></tr>
+        <tr><td class="prop-name">&lt;script&gt;</td><td class="prop-values">src, type, async, defer, module, nomodule, crossorigin</td><td class="prop-desc">JavaScript embebido o referencia a archivo externo</td><td class="prop-example">&lt;script src="app.js" defer&gt;&lt;/script&gt;</td></tr>
+        <tr><td class="prop-name">&lt;noscript&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenido alternativo si JS está deshabilitado</td><td class="prop-example">&lt;noscript&gt;Activa JS&lt;/noscript&gt;</td></tr>
+        <tr><td class="prop-name">&lt;base&gt;</td><td class="prop-values">href, target</td><td class="prop-desc">URL base para todos los enlaces relativos del documento</td><td class="prop-example">&lt;base href="https://example.com/"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;body&gt;</td><td class="prop-values">onload, onunload, class, id, style</td><td class="prop-desc">Contenedor de todo el contenido visible de la página</td><td class="prop-example">&lt;body class="dark"&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEMÁNTICA -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Semántica y secciones</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;header&gt;</td><td class="prop-values">class, id, role</td><td class="prop-desc">Encabezado de la página o de una sección (logo, nav, título)</td><td class="prop-example">&lt;header&gt;...&lt;/header&gt;</td></tr>
+        <tr><td class="prop-name">&lt;nav&gt;</td><td class="prop-values">aria-label</td><td class="prop-desc">Bloque de navegación principal (menú, breadcrumbs, etc.)</td><td class="prop-example">&lt;nav aria-label="principal"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;main&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenido principal único de la página (solo uno por doc)</td><td class="prop-example">&lt;main&gt;...&lt;/main&gt;</td></tr>
+        <tr><td class="prop-name">&lt;section&gt;</td><td class="prop-values">aria-labelledby</td><td class="prop-desc">Sección temática del documento; normalmente lleva un heading</td><td class="prop-example">&lt;section&gt;&lt;h2&gt;Sobre mí&lt;/h2&gt;&lt;/section&gt;</td></tr>
+        <tr><td class="prop-name">&lt;article&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenido autónomo y reutilizable (post, tarjeta, noticia)</td><td class="prop-example">&lt;article&gt;...&lt;/article&gt;</td></tr>
+        <tr><td class="prop-name">&lt;aside&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenido relacionado pero secundario (sidebar, callout)</td><td class="prop-example">&lt;aside&gt;...&lt;/aside&gt;</td></tr>
+        <tr><td class="prop-name">&lt;footer&gt;</td><td class="prop-values">—</td><td class="prop-desc">Pie de página o de sección (copyright, enlaces, contacto)</td><td class="prop-example">&lt;footer&gt;© 2025&lt;/footer&gt;</td></tr>
+        <tr><td class="prop-name">&lt;h1&gt;...&lt;h6&gt;</td><td class="prop-values">—</td><td class="prop-desc">Títulos jerárquicos. h1 = más importante, h6 = menos. Solo un h1 por página</td><td class="prop-example">&lt;h1&gt;Título principal&lt;/h1&gt;</td></tr>
+        <tr><td class="prop-name">&lt;p&gt;</td><td class="prop-values">—</td><td class="prop-desc">Párrafo de texto</td><td class="prop-example">&lt;p&gt;Texto aquí.&lt;/p&gt;</td></tr>
+        <tr><td class="prop-name">&lt;address&gt;</td><td class="prop-values">—</td><td class="prop-desc">Información de contacto del autor o propietario</td><td class="prop-example">&lt;address&gt;email@example.com&lt;/address&gt;</td></tr>
+        <tr><td class="prop-name">&lt;div&gt;</td><td class="prop-values">class, id, style, data-*</td><td class="prop-desc">Contenedor de bloque genérico sin semántica. Uso para layout y agrupación</td><td class="prop-example">&lt;div class="card"&gt;...&lt;/div&gt;</td></tr>
+        <tr><td class="prop-name">&lt;span&gt;</td><td class="prop-values">class, id, style</td><td class="prop-desc">Contenedor en línea genérico sin semántica</td><td class="prop-example">&lt;span class="highlight"&gt;texto&lt;/span&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TEXTO -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Texto en línea y formato</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;strong&gt;</td><td class="prop-values">—</td><td class="prop-desc">Importancia semántica fuerte (visualmente negrita)</td><td class="prop-example">&lt;strong&gt;importante&lt;/strong&gt;</td></tr>
+        <tr><td class="prop-name">&lt;em&gt;</td><td class="prop-values">—</td><td class="prop-desc">Énfasis semántico (visualmente itálica)</td><td class="prop-example">&lt;em&gt;énfasis&lt;/em&gt;</td></tr>
+        <tr><td class="prop-name">&lt;b&gt;</td><td class="prop-values">—</td><td class="prop-desc">Negrita sin semántica especial (estilo visual)</td><td class="prop-example">&lt;b&gt;negrita&lt;/b&gt;</td></tr>
+        <tr><td class="prop-name">&lt;i&gt;</td><td class="prop-values">—</td><td class="prop-desc">Itálica sin semántica especial (términos técnicos, idiomas)</td><td class="prop-example">&lt;i&gt;cursiva&lt;/i&gt;</td></tr>
+        <tr><td class="prop-name">&lt;u&gt;</td><td class="prop-values">—</td><td class="prop-desc">Subrayado (texto con anotaciones no verbales)</td><td class="prop-example">&lt;u&gt;subrayado&lt;/u&gt;</td></tr>
+        <tr><td class="prop-name">&lt;s&gt;</td><td class="prop-values">—</td><td class="prop-desc">Texto tachado (ya no relevante o incorrecto)</td><td class="prop-example">&lt;s&gt;precio anterior&lt;/s&gt;</td></tr>
+        <tr><td class="prop-name">&lt;mark&gt;</td><td class="prop-values">—</td><td class="prop-desc">Texto resaltado/marcado (como con marcador amarillo)</td><td class="prop-example">&lt;mark&gt;resaltado&lt;/mark&gt;</td></tr>
+        <tr><td class="prop-name">&lt;small&gt;</td><td class="prop-values">—</td><td class="prop-desc">Texto de tamaño reducido (notas al pie, copyright)</td><td class="prop-example">&lt;small&gt;© 2025&lt;/small&gt;</td></tr>
+        <tr><td class="prop-name">&lt;sub&gt;</td><td class="prop-values">—</td><td class="prop-desc">Subíndice (H₂O, fórmulas matemáticas)</td><td class="prop-example">H&lt;sub&gt;2&lt;/sub&gt;O</td></tr>
+        <tr><td class="prop-name">&lt;sup&gt;</td><td class="prop-values">—</td><td class="prop-desc">Superíndice (notas al pie, potencias: x²)</td><td class="prop-example">x&lt;sup&gt;2&lt;/sup&gt;</td></tr>
+        <tr><td class="prop-name">&lt;code&gt;</td><td class="prop-values">—</td><td class="prop-desc">Fragmento de código en línea (tipografía monospace)</td><td class="prop-example">&lt;code&gt;const x = 1&lt;/code&gt;</td></tr>
+        <tr><td class="prop-name">&lt;pre&gt;</td><td class="prop-values">—</td><td class="prop-desc">Texto preformateado (respeta espacios y saltos de línea)</td><td class="prop-example">&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</td></tr>
+        <tr><td class="prop-name">&lt;kbd&gt;</td><td class="prop-values">—</td><td class="prop-desc">Entrada de teclado (teclas que el usuario debe presionar)</td><td class="prop-example">&lt;kbd&gt;Ctrl+C&lt;/kbd&gt;</td></tr>
+        <tr><td class="prop-name">&lt;var&gt;</td><td class="prop-values">—</td><td class="prop-desc">Variable matemática o de programación</td><td class="prop-example">&lt;var&gt;x&lt;/var&gt; = 5</td></tr>
+        <tr><td class="prop-name">&lt;samp&gt;</td><td class="prop-values">—</td><td class="prop-desc">Salida de ejemplo de un programa de computadora</td><td class="prop-example">&lt;samp&gt;Error 404&lt;/samp&gt;</td></tr>
+        <tr><td class="prop-name">&lt;abbr&gt;</td><td class="prop-values">title</td><td class="prop-desc">Abreviatura o acrónimo con su definición completa en title</td><td class="prop-example">&lt;abbr title="HyperText"&gt;HTML&lt;/abbr&gt;</td></tr>
+        <tr><td class="prop-name">&lt;cite&gt;</td><td class="prop-values">—</td><td class="prop-desc">Título de obra citada (libro, película, canción, etc.)</td><td class="prop-example">&lt;cite&gt;El Quijote&lt;/cite&gt;</td></tr>
+        <tr><td class="prop-name">&lt;q&gt;</td><td class="prop-values">cite</td><td class="prop-desc">Cita en línea corta (añade comillas automáticamente)</td><td class="prop-example">&lt;q&gt;Hola mundo&lt;/q&gt;</td></tr>
+        <tr><td class="prop-name">&lt;blockquote&gt;</td><td class="prop-values">cite</td><td class="prop-desc">Cita larga en bloque de otra fuente</td><td class="prop-example">&lt;blockquote cite="url"&gt;...&lt;/blockquote&gt;</td></tr>
+        <tr><td class="prop-name">&lt;time&gt;</td><td class="prop-values">datetime</td><td class="prop-desc">Fecha u hora legible por máquinas</td><td class="prop-example">&lt;time datetime="2025-01-01"&gt;Año nuevo&lt;/time&gt;</td></tr>
+        <tr><td class="prop-name">&lt;data&gt;</td><td class="prop-values">value</td><td class="prop-desc">Vincula contenido legible con su valor para máquinas</td><td class="prop-example">&lt;data value="42"&gt;cuarenta y dos&lt;/data&gt;</td></tr>
+        <tr><td class="prop-name">&lt;dfn&gt;</td><td class="prop-values">title</td><td class="prop-desc">Término que se está definiendo en el contexto</td><td class="prop-example">&lt;dfn&gt;HTML&lt;/dfn&gt; es un lenguaje...</td></tr>
+        <tr><td class="prop-name">&lt;bdo&gt;</td><td class="prop-values">dir (ltr | rtl)</td><td class="prop-desc">Sobreescribe la dirección del texto (bidirectional override)</td><td class="prop-example">&lt;bdo dir="rtl"&gt;hola&lt;/bdo&gt;</td></tr>
+        <tr><td class="prop-name">&lt;wbr&gt;</td><td class="prop-values">—</td><td class="prop-desc">Punto de quiebre de línea opcional (sin guión)</td><td class="prop-example">URL/muy&lt;wbr&gt;larga/aqui</td></tr>
+        <tr><td class="prop-name">&lt;br&gt;</td><td class="prop-values">—</td><td class="prop-desc">Salto de línea forzado (elemento vacío)</td><td class="prop-example">línea 1&lt;br&gt;línea 2</td></tr>
+        <tr><td class="prop-name">&lt;hr&gt;</td><td class="prop-values">—</td><td class="prop-desc">Separador temático horizontal (cambio de tema)</td><td class="prop-example">&lt;hr&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ENLACES E IMÁGENES -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Enlaces, imágenes y multimedia</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;a&gt;</td><td class="prop-values">href, target, rel, download, hreflang, type, ping</td><td class="prop-desc">Hipervínculo. href puede ser URL, #id, mailto:, tel:, javascript:</td><td class="prop-example">&lt;a href="page.html" target="_blank" rel="noopener"&gt;link&lt;/a&gt;</td></tr>
+        <tr><td class="prop-name">&lt;img&gt;</td><td class="prop-values">src, alt, width, height, loading, decoding, srcset, sizes, crossorigin</td><td class="prop-desc">Imagen embebida. alt obligatorio para accesibilidad. loading="lazy" para rendimiento</td><td class="prop-example">&lt;img src="foto.jpg" alt="descripción" loading="lazy"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;picture&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenedor para múltiples fuentes de imagen con art direction responsivo</td><td class="prop-example">&lt;picture&gt;&lt;source ...&gt;&lt;img ...&gt;&lt;/picture&gt;</td></tr>
+        <tr><td class="prop-name">&lt;source&gt;</td><td class="prop-values">src, srcset, media, sizes, type</td><td class="prop-desc">Fuente alternativa para &lt;picture&gt;, &lt;audio&gt; o &lt;video&gt;</td><td class="prop-example">&lt;source srcset="img.webp" type="image/webp"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;figure&gt;</td><td class="prop-values">—</td><td class="prop-desc">Contenido autónomo con caption (imagen, diagrama, código)</td><td class="prop-example">&lt;figure&gt;&lt;img ...&gt;&lt;figcaption&gt;Pie&lt;/figcaption&gt;&lt;/figure&gt;</td></tr>
+        <tr><td class="prop-name">&lt;figcaption&gt;</td><td class="prop-values">—</td><td class="prop-desc">Leyenda o descripción del &lt;figure&gt;</td><td class="prop-example">&lt;figcaption&gt;Fig. 1&lt;/figcaption&gt;</td></tr>
+        <tr><td class="prop-name">&lt;video&gt;</td><td class="prop-values">src, controls, autoplay, loop, muted, poster, preload, width, height, playsinline</td><td class="prop-desc">Video embebido. controls muestra los controles nativos</td><td class="prop-example">&lt;video src="vid.mp4" controls poster="thumb.jpg"&gt;&lt;/video&gt;</td></tr>
+        <tr><td class="prop-name">&lt;audio&gt;</td><td class="prop-values">src, controls, autoplay, loop, muted, preload</td><td class="prop-desc">Audio embebido</td><td class="prop-example">&lt;audio src="song.mp3" controls&gt;&lt;/audio&gt;</td></tr>
+        <tr><td class="prop-name">&lt;track&gt;</td><td class="prop-values">src, kind, srclang, label, default</td><td class="prop-desc">Subtítulos o pistas de texto para &lt;video&gt; o &lt;audio&gt; (WebVTT)</td><td class="prop-example">&lt;track src="subs.vtt" kind="subtitles" srclang="es"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;iframe&gt;</td><td class="prop-values">src, width, height, title, sandbox, allow, allowfullscreen, loading, referrerpolicy</td><td class="prop-desc">Marco en línea para embeber otra página o contenido externo</td><td class="prop-example">&lt;iframe src="https://map.com" title="mapa"&gt;&lt;/iframe&gt;</td></tr>
+        <tr><td class="prop-name">&lt;embed&gt;</td><td class="prop-values">src, type, width, height</td><td class="prop-desc">Contenido externo (plugin, PDF). Menos usado hoy</td><td class="prop-example">&lt;embed src="file.pdf" type="application/pdf"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;object&gt;</td><td class="prop-values">data, type, width, height, name, usemap</td><td class="prop-desc">Recurso externo genérico (PDF, Flash legacy, SVG)</td><td class="prop-example">&lt;object data="doc.pdf" type="application/pdf"&gt;&lt;/object&gt;</td></tr>
+        <tr><td class="prop-name">&lt;svg&gt;</td><td class="prop-values">width, height, viewBox, xmlns, fill, stroke</td><td class="prop-desc">Gráficos vectoriales escalables embebidos directamente en HTML</td><td class="prop-example">&lt;svg viewBox="0 0 100 100"&gt;&lt;circle r="50"/&gt;&lt;/svg&gt;</td></tr>
+        <tr><td class="prop-name">&lt;canvas&gt;</td><td class="prop-values">width, height, id</td><td class="prop-desc">Área de dibujo 2D/3D mediante JavaScript (API Canvas / WebGL)</td><td class="prop-example">&lt;canvas id="myCanvas" width="400" height="300"&gt;&lt;/canvas&gt;</td></tr>
+        <tr><td class="prop-name">&lt;map&gt;</td><td class="prop-values">name</td><td class="prop-desc">Mapa de imagen (image map) junto con &lt;area&gt;</td><td class="prop-example">&lt;map name="mapa"&gt;&lt;area ...&gt;&lt;/map&gt;</td></tr>
+        <tr><td class="prop-name">&lt;area&gt;</td><td class="prop-values">href, alt, shape, coords, target</td><td class="prop-desc">Área clicable dentro de un &lt;map&gt; (rect, circle, poly)</td><td class="prop-example">&lt;area shape="circle" coords="90,58,3" href="url"&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LISTAS -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Listas</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;ul&gt;</td><td class="prop-values">—</td><td class="prop-desc">Lista desordenada (con bullets). Sus hijos deben ser &lt;li&gt;</td><td class="prop-example">&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</td></tr>
+        <tr><td class="prop-name">&lt;ol&gt;</td><td class="prop-values">type (1/A/a/I/i), start, reversed</td><td class="prop-desc">Lista ordenada numerada. start define el número inicial</td><td class="prop-example">&lt;ol start="3"&gt;&lt;li&gt;Tercero&lt;/li&gt;&lt;/ol&gt;</td></tr>
+        <tr><td class="prop-name">&lt;li&gt;</td><td class="prop-values">value (solo en &lt;ol&gt;)</td><td class="prop-desc">Elemento de lista; hijo de &lt;ul&gt;, &lt;ol&gt; o &lt;menu&gt;</td><td class="prop-example">&lt;li&gt;Elemento&lt;/li&gt;</td></tr>
+        <tr><td class="prop-name">&lt;dl&gt;</td><td class="prop-values">—</td><td class="prop-desc">Lista de definiciones (pares término-descripción)</td><td class="prop-example">&lt;dl&gt;&lt;dt&gt;HTML&lt;/dt&gt;&lt;dd&gt;Lenguaje...&lt;/dd&gt;&lt;/dl&gt;</td></tr>
+        <tr><td class="prop-name">&lt;dt&gt;</td><td class="prop-values">—</td><td class="prop-desc">Término en una lista de definiciones</td><td class="prop-example">&lt;dt&gt;CSS&lt;/dt&gt;</td></tr>
+        <tr><td class="prop-name">&lt;dd&gt;</td><td class="prop-values">—</td><td class="prop-desc">Descripción/definición de un &lt;dt&gt;</td><td class="prop-example">&lt;dd&gt;Cascade Style Sheets&lt;/dd&gt;</td></tr>
+        <tr><td class="prop-name">&lt;menu&gt;</td><td class="prop-values">—</td><td class="prop-desc">Lista de comandos/opciones (semánticamente igual a ul, usado para toolbars)</td><td class="prop-example">&lt;menu&gt;&lt;li&gt;&lt;button&gt;...&lt;/button&gt;&lt;/li&gt;&lt;/menu&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TABLAS -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Tablas</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;table&gt;</td><td class="prop-values">—</td><td class="prop-desc">Tabla de datos. No usar para layout</td><td class="prop-example">&lt;table&gt;...&lt;/table&gt;</td></tr>
+        <tr><td class="prop-name">&lt;caption&gt;</td><td class="prop-values">—</td><td class="prop-desc">Título/descripción de la tabla (primer hijo de &lt;table&gt;)</td><td class="prop-example">&lt;caption&gt;Ventas 2025&lt;/caption&gt;</td></tr>
+        <tr><td class="prop-name">&lt;thead&gt;</td><td class="prop-values">—</td><td class="prop-desc">Grupo de filas de encabezado de la tabla</td><td class="prop-example">&lt;thead&gt;&lt;tr&gt;...&lt;/tr&gt;&lt;/thead&gt;</td></tr>
+        <tr><td class="prop-name">&lt;tbody&gt;</td><td class="prop-values">—</td><td class="prop-desc">Grupo de filas del cuerpo principal de la tabla</td><td class="prop-example">&lt;tbody&gt;&lt;tr&gt;...&lt;/tr&gt;&lt;/tbody&gt;</td></tr>
+        <tr><td class="prop-name">&lt;tfoot&gt;</td><td class="prop-values">—</td><td class="prop-desc">Grupo de filas del pie de la tabla (totales, resúmenes)</td><td class="prop-example">&lt;tfoot&gt;&lt;tr&gt;...&lt;/tr&gt;&lt;/tfoot&gt;</td></tr>
+        <tr><td class="prop-name">&lt;tr&gt;</td><td class="prop-values">—</td><td class="prop-desc">Fila de tabla (table row)</td><td class="prop-example">&lt;tr&gt;&lt;td&gt;dato&lt;/td&gt;&lt;/tr&gt;</td></tr>
+        <tr><td class="prop-name">&lt;td&gt;</td><td class="prop-values">colspan, rowspan, headers, scope</td><td class="prop-desc">Celda de datos de tabla</td><td class="prop-example">&lt;td colspan="2"&gt;fusionada&lt;/td&gt;</td></tr>
+        <tr><td class="prop-name">&lt;th&gt;</td><td class="prop-values">colspan, rowspan, scope (col/row/colgroup/rowgroup), abbr</td><td class="prop-desc">Celda de encabezado de tabla (negrita y centrada por defecto)</td><td class="prop-example">&lt;th scope="col"&gt;Nombre&lt;/th&gt;</td></tr>
+        <tr><td class="prop-name">&lt;colgroup&gt;</td><td class="prop-values">span</td><td class="prop-desc">Agrupa columnas para aplicarles estilos en conjunto</td><td class="prop-example">&lt;colgroup&gt;&lt;col style="background:#eee"&gt;&lt;/colgroup&gt;</td></tr>
+        <tr><td class="prop-name">&lt;col&gt;</td><td class="prop-values">span, style, class</td><td class="prop-desc">Columna individual dentro de &lt;colgroup&gt;</td><td class="prop-example">&lt;col span="2" style="width:100px"&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FORMULARIOS -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Formularios</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;form&gt;</td><td class="prop-values">action, method (get/post), enctype, novalidate, autocomplete, target</td><td class="prop-desc">Contenedor de formulario. Define cómo y dónde se envían los datos</td><td class="prop-example">&lt;form action="/send" method="post"&gt;&lt;/form&gt;</td></tr>
+        <tr><td class="prop-name">&lt;input&gt;</td><td class="prop-values">type, name, value, placeholder, required, disabled, readonly, id, min, max, step, pattern, autocomplete, autofocus, multiple, accept, list, checked, form</td><td class="prop-desc">Campo de entrada. El type cambia su comportamiento completamente</td><td class="prop-example">&lt;input type="email" name="email" required&gt;</td></tr>
+        <tr><td class="prop-name">type="text"</td><td class="prop-values">minlength, maxlength, pattern, placeholder</td><td class="prop-desc">Texto de una línea (default)</td><td class="prop-example">&lt;input type="text" placeholder="Nombre"&gt;</td></tr>
+        <tr><td class="prop-name">type="email"</td><td class="prop-values">multiple</td><td class="prop-desc">Email — valida formato automáticamente</td><td class="prop-example">&lt;input type="email"&gt;</td></tr>
+        <tr><td class="prop-name">type="password"</td><td class="prop-values">minlength, maxlength</td><td class="prop-desc">Contraseña — oculta el texto</td><td class="prop-example">&lt;input type="password"&gt;</td></tr>
+        <tr><td class="prop-name">type="number"</td><td class="prop-values">min, max, step</td><td class="prop-desc">Número — solo acepta dígitos con spinner</td><td class="prop-example">&lt;input type="number" min="0" max="100"&gt;</td></tr>
+        <tr><td class="prop-name">type="range"</td><td class="prop-values">min, max, step, list</td><td class="prop-desc">Slider deslizante para seleccionar un valor en un rango</td><td class="prop-example">&lt;input type="range" min="0" max="10"&gt;</td></tr>
+        <tr><td class="prop-name">type="checkbox"</td><td class="prop-values">checked, value, indeterminate (JS)</td><td class="prop-desc">Casilla de verificación (puede estar checked inicialmente)</td><td class="prop-example">&lt;input type="checkbox" checked&gt;</td></tr>
+        <tr><td class="prop-name">type="radio"</td><td class="prop-values">checked, value, name (agrupa radios)</td><td class="prop-desc">Botón de opción — solo uno por grupo puede estar seleccionado</td><td class="prop-example">&lt;input type="radio" name="color" value="red"&gt;</td></tr>
+        <tr><td class="prop-name">type="file"</td><td class="prop-values">accept, multiple, capture</td><td class="prop-desc">Selector de archivo(s) del sistema</td><td class="prop-example">&lt;input type="file" accept=".pdf,.jpg" multiple&gt;</td></tr>
+        <tr><td class="prop-name">type="date" / time / datetime-local / month / week</td><td class="prop-values">min, max, step, value</td><td class="prop-desc">Selectores de fecha y hora con UI nativa del navegador</td><td class="prop-example">&lt;input type="date" min="2025-01-01"&gt;</td></tr>
+        <tr><td class="prop-name">type="color"</td><td class="prop-values">value (hex)</td><td class="prop-desc">Selector de color nativo</td><td class="prop-example">&lt;input type="color" value="#7c6aff"&gt;</td></tr>
+        <tr><td class="prop-name">type="search"</td><td class="prop-values">—</td><td class="prop-desc">Campo de búsqueda (agrega botón limpiar en algunos browsers)</td><td class="prop-example">&lt;input type="search" placeholder="Buscar..."&gt;</td></tr>
+        <tr><td class="prop-name">type="url"</td><td class="prop-values">—</td><td class="prop-desc">URL — valida formato automáticamente</td><td class="prop-example">&lt;input type="url" placeholder="https://"&gt;</td></tr>
+        <tr><td class="prop-name">type="tel"</td><td class="prop-values">pattern</td><td class="prop-desc">Teléfono — sin validación automática, abre teclado numérico en móvil</td><td class="prop-example">&lt;input type="tel" pattern="[0-9]{10}"&gt;</td></tr>
+        <tr><td class="prop-name">type="hidden"</td><td class="prop-values">name, value</td><td class="prop-desc">Campo invisible que envía datos ocultos al servidor</td><td class="prop-example">&lt;input type="hidden" name="token" value="abc"&gt;</td></tr>
+        <tr><td class="prop-name">type="submit" / reset / button</td><td class="prop-values">value, form, formaction</td><td class="prop-desc">Botones de envío, reset y genérico</td><td class="prop-example">&lt;input type="submit" value="Enviar"&gt;</td></tr>
+        <tr><td class="prop-name">&lt;textarea&gt;</td><td class="prop-values">name, rows, cols, placeholder, required, readonly, disabled, maxlength, minlength, wrap, resize (CSS)</td><td class="prop-desc">Área de texto multilínea</td><td class="prop-example">&lt;textarea rows="5" cols="40"&gt;&lt;/textarea&gt;</td></tr>
+        <tr><td class="prop-name">&lt;select&gt;</td><td class="prop-values">name, multiple, size, required, disabled, form</td><td class="prop-desc">Lista desplegable de opciones</td><td class="prop-example">&lt;select name="color"&gt;&lt;option&gt;Rojo&lt;/option&gt;&lt;/select&gt;</td></tr>
+        <tr><td class="prop-name">&lt;option&gt;</td><td class="prop-values">value, selected, disabled, label</td><td class="prop-desc">Opción dentro de &lt;select&gt; o &lt;datalist&gt;</td><td class="prop-example">&lt;option value="es" selected&gt;Español&lt;/option&gt;</td></tr>
+        <tr><td class="prop-name">&lt;optgroup&gt;</td><td class="prop-values">label, disabled</td><td class="prop-desc">Agrupa opciones dentro de &lt;select&gt;</td><td class="prop-example">&lt;optgroup label="Europa"&gt;&lt;option&gt;...&lt;/optgroup&gt;</td></tr>
+        <tr><td class="prop-name">&lt;datalist&gt;</td><td class="prop-values">id</td><td class="prop-desc">Lista de sugerencias para un &lt;input list="id"&gt; (autocompletado)</td><td class="prop-example">&lt;datalist id="frutas"&gt;&lt;option value="Mango"&gt;&lt;/datalist&gt;</td></tr>
+        <tr><td class="prop-name">&lt;label&gt;</td><td class="prop-values">for (= id del input), form</td><td class="prop-desc">Etiqueta accesible para un campo. Clic en label enfoca el campo</td><td class="prop-example">&lt;label for="email"&gt;Email:&lt;/label&gt;</td></tr>
+        <tr><td class="prop-name">&lt;fieldset&gt;</td><td class="prop-values">disabled, form, name</td><td class="prop-desc">Agrupa controles de formulario relacionados con borde visual</td><td class="prop-example">&lt;fieldset&gt;&lt;legend&gt;Datos&lt;/legend&gt;...&lt;/fieldset&gt;</td></tr>
+        <tr><td class="prop-name">&lt;legend&gt;</td><td class="prop-values">—</td><td class="prop-desc">Título del &lt;fieldset&gt;</td><td class="prop-example">&lt;legend&gt;Información personal&lt;/legend&gt;</td></tr>
+        <tr><td class="prop-name">&lt;button&gt;</td><td class="prop-values">type (submit/reset/button), disabled, form, formaction, formmethod, name, value, autofocus</td><td class="prop-desc">Botón interactivo. Más flexible que &lt;input type="button"&gt;</td><td class="prop-example">&lt;button type="submit"&gt;Enviar&lt;/button&gt;</td></tr>
+        <tr><td class="prop-name">&lt;output&gt;</td><td class="prop-values">for, form, name</td><td class="prop-desc">Resultado calculado de un formulario</td><td class="prop-example">&lt;output for="a b"&gt;0&lt;/output&gt;</td></tr>
+        <tr><td class="prop-name">&lt;meter&gt;</td><td class="prop-values">value, min, max, low, high, optimum</td><td class="prop-desc">Medición escalar dentro de un rango conocido (barra de medición)</td><td class="prop-example">&lt;meter value="70" min="0" max="100"&gt;70%&lt;/meter&gt;</td></tr>
+        <tr><td class="prop-name">&lt;progress&gt;</td><td class="prop-values">value, max</td><td class="prop-desc">Indicador de progreso de una tarea</td><td class="prop-example">&lt;progress value="60" max="100"&gt;&lt;/progress&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- INTERACTIVOS -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Elementos interactivos y componentes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Etiqueta</th><th>Atributos principales</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">&lt;details&gt;</td><td class="prop-values">open</td><td class="prop-desc">Componente desplegable nativo. open lo muestra expandido por defecto</td><td class="prop-example">&lt;details&gt;&lt;summary&gt;Ver más&lt;/summary&gt;...&lt;/details&gt;</td></tr>
+        <tr><td class="prop-name">&lt;summary&gt;</td><td class="prop-values">—</td><td class="prop-desc">Encabezado clicable de &lt;details&gt; (primer hijo requerido)</td><td class="prop-example">&lt;summary&gt;Haz clic para expandir&lt;/summary&gt;</td></tr>
+        <tr><td class="prop-name">&lt;dialog&gt;</td><td class="prop-values">open</td><td class="prop-desc">Cuadro de diálogo modal o no-modal nativo (se controla con JS: .showModal())</td><td class="prop-example">&lt;dialog id="modal"&gt;...&lt;/dialog&gt;</td></tr>
+        <tr><td class="prop-name">&lt;popover&gt; (atributo)</td><td class="prop-values">popover, popovertarget, popovertargetaction</td><td class="prop-desc">Nuevas APIs de popover HTML nativo (sin JS)</td><td class="prop-example">&lt;div popover id="p"&gt;...&lt;/div&gt;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ATRIBUTOS GLOBALES -->
+  <h3 style="color:var(--accent3);font-size:0.95rem;margin:1.5rem 0 0.75rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;">Atributos globales (válidos en cualquier etiqueta)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Atributo</th><th>Valores</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="prop-name">id</td><td class="prop-values">identificador único</td><td class="prop-desc">Identificador único del elemento en el documento</td><td class="prop-example">id="main-header"</td></tr>
+        <tr><td class="prop-name">class</td><td class="prop-values">uno o más nombres separados por espacio</td><td class="prop-desc">Clases CSS para aplicar estilos o seleccionar con JS</td><td class="prop-example">class="card active"</td></tr>
+        <tr><td class="prop-name">style</td><td class="prop-values">declaraciones CSS en línea</td><td class="prop-desc">CSS en línea directo en el elemento (evitar en producción)</td><td class="prop-example">style="color:red;font-size:1rem"</td></tr>
+        <tr><td class="prop-name">data-*</td><td class="prop-values">cualquier cadena</td><td class="prop-desc">Atributos de datos personalizados accesibles desde JS con dataset</td><td class="prop-example">data-user-id="42"</td></tr>
+        <tr><td class="prop-name">hidden</td><td class="prop-values">hidden | until-found</td><td class="prop-desc">Oculta el elemento (equivale a display:none)</td><td class="prop-example">hidden</td></tr>
+        <tr><td class="prop-name">tabindex</td><td class="prop-values">-1 | 0 | &lt;integer positivo&gt;</td><td class="prop-desc">Orden de navegación por teclado. -1 = no tabulable pero enfocable por JS</td><td class="prop-example">tabindex="0"</td></tr>
+        <tr><td class="prop-name">title</td><td class="prop-values">texto</td><td class="prop-desc">Texto de tooltip al hacer hover. Accesibilidad limitada (no confiar solo en él)</td><td class="prop-example">title="Información adicional"</td></tr>
+        <tr><td class="prop-name">lang</td><td class="prop-values">código de idioma BCP47 (es, en, fr…)</td><td class="prop-desc">Idioma del contenido del elemento (afecta pronunciación TTS y corrección ortográfica)</td><td class="prop-example">lang="es"</td></tr>
+        <tr><td class="prop-name">dir</td><td class="prop-values">ltr | rtl | auto</td><td class="prop-desc">Dirección del texto (left-to-right / right-to-left)</td><td class="prop-example">dir="rtl"</td></tr>
+        <tr><td class="prop-name">contenteditable</td><td class="prop-values">true | false | plaintext-only</td><td class="prop-desc">Permite al usuario editar el contenido directamente en el navegador</td><td class="prop-example">contenteditable="true"</td></tr>
+        <tr><td class="prop-name">draggable</td><td class="prop-values">true | false</td><td class="prop-desc">Hace que el elemento sea arrastrable (junto con la API Drag and Drop)</td><td class="prop-example">draggable="true"</td></tr>
+        <tr><td class="prop-name">spellcheck</td><td class="prop-values">true | false</td><td class="prop-desc">Activa/desactiva la corrección ortográfica del navegador</td><td class="prop-example">spellcheck="false"</td></tr>
+        <tr><td class="prop-name">translate</td><td class="prop-values">yes | no</td><td class="prop-desc">Si el contenido debe ser traducido por herramientas de traducción</td><td class="prop-example">translate="no"</td></tr>
+        <tr><td class="prop-name">role</td><td class="prop-values">button | navigation | main | banner | dialog | alert | list | listitem | img | heading | ... (ARIA)</td><td class="prop-desc">Rol ARIA semántico para accesibilidad (lectores de pantalla)</td><td class="prop-example">role="navigation"</td></tr>
+        <tr><td class="prop-name">aria-*</td><td class="prop-values">label, labelledby, describedby, hidden, expanded, required, selected, checked, live, atomic…</td><td class="prop-desc">Atributos ARIA para mejorar accesibilidad de elementos dinámicos</td><td class="prop-example">aria-label="Cerrar menú"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+</main>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.section');
+  const searchInput = document.getElementById('search');
+  const noResults = document.getElementById('no-results');
+
+  let currentSection = 'all';
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentSection = tab.dataset.section;
+      filterContent();
+    });
+  });
+
+  searchInput.addEventListener('input', filterContent);
+
+  function filterContent() {
+    const q = searchInput.value.toLowerCase().trim();
+    let anyVisible = false;
+
+    sections.forEach(section => {
+      const sec = section.dataset.section;
+      const matchesTab = currentSection === 'all' || sec === currentSection;
+
+      if (!matchesTab) {
+        section.classList.remove('visible');
+        return;
+      }
+
+      if (!q) {
+        section.classList.add('visible');
+        section.querySelectorAll('tbody tr').forEach(r => r.style.display = '');
+        anyVisible = true;
+        return;
+      }
+
+      let sectionHasVisible = false;
+      section.querySelectorAll('tbody tr').forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const matches = text.includes(q);
+        row.style.display = matches ? '' : 'none';
+        if (matches) sectionHasVisible = true;
+      });
+
+      if (sectionHasVisible) {
+        section.classList.add('visible');
+        anyVisible = true;
+      } else {
+        section.classList.remove('visible');
+      }
+    });
+
+    noResults.classList.toggle('visible', !anyVisible);
+  }
+</script>
+</body>
+</html>
